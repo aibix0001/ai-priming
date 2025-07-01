@@ -59,6 +59,25 @@ These rules apply to ALL projects and should be followed regardless of project t
 - If no repository exists, initialize with `git init`
 - Always commit changes with meaningful commit messages that enable tracking changes over time
 - Commit messages should be descriptive enough that reading the log provides a clear project history
+- ALWAYS create and maintain a .gitignore file to exclude unnecessary files from version control
+
+### .gitignore Management
+- Create .gitignore file in the root of every project
+- Include common patterns for the project's language/framework
+- ALWAYS include .venv/ for Python projects
+- ALWAYS include .env for environment variables
+- Include build artifacts, logs, temporary files, and IDE-specific files
+- Keep .gitignore updated as the project evolves
+- Review and test .gitignore patterns regularly
+
+### Environment Configuration
+- Use .env files for environment-specific configuration
+- NEVER commit .env files to version control
+- ALWAYS create .env.example with template values
+- Use placeholder values in .env.example (e.g., API_KEY=your_api_key_here)
+- Document required environment variables in .env.example
+- Update .env.example whenever new environment variables are added
+- Use meaningful placeholder text that explains the purpose of each variable
 
 ### Branch Management
 - Create and checkout new branch when starting different work or new features
