@@ -51,7 +51,8 @@ These rules apply to ALL projects and should be followed regardless of project t
 - Keep commits focused on a single logical change
 - Never force push unless explicitly instructed
 - Review changes before committing
-- Use conventional commit format if the project uses it
+- Follow the project's existing commit message format and style
+- For new repositories or projects without established patterns, use conventional commit format (feat:, fix:, docs:, etc.)
 
 ### Git Repository Management
 - Check if git repository exists before any git operations
@@ -80,10 +81,11 @@ These rules apply to ALL projects and should be followed regardless of project t
 - Use meaningful placeholder text that explains the purpose of each variable
 
 ### Branch Management
-- Create and checkout new branch when starting different work or new features
-- Name branches descriptively (e.g., feature/user-auth, fix/login-bug)
-- Continue working in current branch until changes significantly deviate from branch purpose
-- Only then create a new branch for the new direction
+- Proactively suggest creating new branches for significant changes or new features
+- Always ask for user confirmation before creating branches: "This looks like a new feature. Should I create a branch called `feature/user-authentication`?"
+- Name branches descriptively using conventional prefixes (feature/, fix/, chore/, etc.)
+- If user declines branch creation, work in current branch as requested
+- If working in a feature branch and scope changes significantly, suggest creating a new branch for the new direction
 - NEVER merge to main/master without explicit user instruction
 - When merging feature branches to main, keep the feature branch for reference
 - Never delete feature branches after merging
