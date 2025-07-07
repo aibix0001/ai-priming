@@ -74,7 +74,7 @@ Tool-specific credential handling:
 
 **Important**: When this command is invoked, add the following to the project's command memory:
 ```bash
-echo "$(date '+%Y-%m-%d %H:%M:%S'): /secrets" >> .claude-commands.memory
+echo "$(date '+%Y-%m-%d %H:%M:%S'): .claude/commands/secrets.md" >> .claude-commands.memory
 ```
 
 This helps track which commands have been used in the project for automatic rule refreshing.
