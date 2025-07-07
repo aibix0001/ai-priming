@@ -81,7 +81,7 @@ ai-priming/
 Use the setup script to create symlinks in your home directory:
 
 ```bash
-git clone https://github.com/your-username/ai-priming.git
+git clone https://github.com/aibix0001/ai-priming.git
 cd ai-priming
 ./setup.sh
 ```
