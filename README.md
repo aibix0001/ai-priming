@@ -11,12 +11,15 @@ This repository serves as the single source of truth for AI assistant configurat
 ### ✅ Core Framework
 - **Universal CLAUDE.md**: Comprehensive rules of engagement including:
   - Core principles (code quality, security, minimal changes, testing, conventions)
+  - Integrated testing framework and strategy guidelines
+  - Comprehensive secrets and credentials management
   - Development workflow rules with Git repository and branch management
   - Communication standards for concise, direct responses
   - Safety guidelines and ethical boundaries
   - Performance optimization strategies
   - Error handling and recovery strategies
   - Continuous improvement guidelines
+  - Professional formatting with consistent structure and cross-references
 
 ### ✅ Version Control Rules
 - Automatic Git repository detection and initialization
@@ -36,9 +39,8 @@ This repository serves as the single source of truth for AI assistant configurat
   - Ansible automation and playbook management
   - NetBox network documentation and management
   - Python development best practices
-  - Secrets management and security practices
-  - Testing framework setup and configuration
   - VyOS network device configuration
+- Universal testing and secrets management integrated into main CLAUDE.md
 - Command template documentation and best practices
 - Support for reusable workflows
 - Command inheritance system
@@ -73,13 +75,9 @@ ai-priming/
 │   ├── ansible.md           # Ansible automation workflows
 │   ├── netbox.md            # NetBox management commands
 │   ├── python.md            # Python development workflows
-│   ├── secrets.md           # Secrets management practices
-│   ├── testing.md           # Testing framework setup
 │   └── vyos.md              # VyOS configuration management
 ├── setup.sh                 # Setup script for symlink creation
 ├── .gitignore               # Excludes local settings and credentials
-├── plans/                   # Enhancement documentation
-│   └── hook-improvements.md # Hooks system improvements
 └── README.md                # This file
 ```
 
