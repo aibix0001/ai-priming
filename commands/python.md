@@ -244,12 +244,3 @@ def test_api_call(mock_get):
 - Generic CLAUDE.md rules always apply as foundation
 
 This command extends and implements the universal principles defined in those files.
-
-## Command Memory Tracking
-
-**Important**: When this command is invoked, add the following to the project's command memory:
-```bash
-echo ".claude/commands/python.md" >> .claude-commands.memory
-```
-
-This helps track which commands have been used in the project for automatic rule refreshing.

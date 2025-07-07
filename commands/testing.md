@@ -93,11 +93,5 @@ Language and tool-specific testing:
 - See `vyos.md` for network device testing
 - Follow `secrets.md` for test environment configuration
 
-## Command Memory Tracking
-
-**Important**: When this command is invoked, add the following to the project's command memory:
-```bash
-echo ".claude/commands/testing.md" >> .claude-commands.memory
-```
-
-This helps track which commands have been used in the project for automatic rule refreshing.
+## ensure proper session initialization and memory
+- ensure `- @.claude/commands/testing.md` is listed in `.claude-commands.memory` under section `## read these files upon initialization` (add if missing, skip if present)

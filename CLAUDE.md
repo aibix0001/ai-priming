@@ -2,21 +2,6 @@
 
 This file provides universal guidance to Claude Code when working with code in any repository.
 
-## MANDATORY SESSION INITIALIZATION - EXECUTE IMMEDIATELY
-
-**CRITICAL**: This rule is NON-NEGOTIABLE and must be the FIRST action taken in every session.
-
-**MANDATORY Rule Refresh**: At the start of EVERY session, the assistant MUST:
-1. Check for `.claude-commands.memory` file in the project root
-2. If the file exists, read it completely
-3. For each file path listed (e.g., `.claude/commands/python.md`, `.claude/commands/ansible.md`), immediately read the corresponding command file
-4. Apply all rules from those command files for the entire session
-5. List the files read and confirm you have understood and applied them
-
-**FAILURE TO FOLLOW THIS RULE IS UNACCEPTABLE**
-
-This ensures the assistant starts with complete project context and applies all relevant specialized rules immediately.
-
 ## Universal Rules of Engagement for AI Assistants
 
 These rules apply to ALL projects and should be followed regardless of project type, language, or framework.
@@ -264,6 +249,11 @@ These rules apply to ALL projects and should be followed regardless of project t
 - Adjust approach based on feedback
 - Remember project-specific preferences
 - Update understanding as project evolves
+
+## Initialization
+
+### Read on startup
+- @.claude-commands.memory
 
 # Important Instruction Reminders
 - Do what has been asked; nothing more, nothing less

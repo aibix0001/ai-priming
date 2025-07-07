@@ -282,15 +282,6 @@ ansible-playbook --syntax-check vyos-config.yml
 
 This command extends and implements the universal principles defined in the required files.
 
-## Command Memory Tracking
-
-**Important**: When this command is invoked, add the following to the project's command memory:
-```bash
-echo ".claude/commands/vyos.md" >> .claude-commands.memory
-```
-
-This helps track which commands have been used in the project for automatic rule refreshing.
-
 ## Performance and Monitoring
 
 ### Configuration Performance
