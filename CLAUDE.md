@@ -1,10 +1,10 @@
-# CLAUDE.md
+# CLAUDE-generic.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides universal guidance to Claude Code when working with code in any repository.
 
-# Universal Rules of Engagement for AI Assistants
+## Universal Rules of Engagement for AI Assistants
 
-These rules apply to ALL projects and should be followed regardless of project type, language, or framework. Project-specific CLAUDE.md files should extend, not replace, these rules.
+These rules apply to ALL projects and should be followed regardless of project type, language, or framework.
 
 ## Core Principles
 
@@ -62,11 +62,23 @@ These rules apply to ALL projects and should be followed regardless of project t
 - Commit messages should be descriptive enough that reading the log provides a clear project history
 - ALWAYS create and maintain a .gitignore file to exclude unnecessary files from version control
 
+### Branch Management
+- **Branch creation default**: only create branches when explicitly requested by user
+- **Branch suggestion trigger**: Claude must suggest creating a new branch when:
+  - Task shifts to a different system/context
+  - Current changes would conflict with or diverge from the existing branch's purpose
+  - User requests a new feature while in the middle of another feature
+  - Work scope significantly expands beyond original branch intent
+- **Suggestion format**: "This seems like a different feature/context. Should I create a new branch for this work?"
+- **Stay on branch**: continue working on current branch unless user approves branch switch
+- **One feature principle**: each branch should represent one cohesive feature or fix
+- **Merge policy**: only merge when user explicitly approves
+- **Branch retention**: after merging, **must not** delete feature branch - keep for reference
+- Name branches descriptively using conventional prefixes (feature/, fix/, chore/, etc.)
+
 ### .gitignore Management
 - Create .gitignore file in the root of every project
 - Include common patterns for the project's language/framework
-- ALWAYS include .venv/ for Python projects
-- ALWAYS include .env for environment variables
 - Include build artifacts, logs, temporary files, and IDE-specific files
 - Keep .gitignore updated as the project evolves
 - Review and test .gitignore patterns regularly
@@ -80,16 +92,6 @@ These rules apply to ALL projects and should be followed regardless of project t
 - Update .env.example whenever new environment variables are added
 - Use meaningful placeholder text that explains the purpose of each variable
 
-### Branch Management
-- Proactively suggest creating new branches for significant changes or new features
-- Always ask for user confirmation before creating branches: "This looks like a new feature. Should I create a branch called `feature/user-authentication`?"
-- Name branches descriptively using conventional prefixes (feature/, fix/, chore/, etc.)
-- If user declines branch creation, work in current branch as requested
-- If working in a feature branch and scope changes significantly, suggest creating a new branch for the new direction
-- NEVER merge to main/master without explicit user instruction
-- When merging feature branches to main, keep the feature branch for reference
-- Never delete feature branches after merging
-
 ### Code Verification
 - ALWAYS run linters before considering work complete
 - ALWAYS run type checkers for typed languages
@@ -97,12 +99,35 @@ These rules apply to ALL projects and should be followed regardless of project t
 - Run formatters if the project has them configured
 - Verify the code compiles/builds successfully
 
-### Testing Protocol
-- Run the full test suite after changes
-- Run specific test files when working on isolated features
-- Create unit tests for new functions
-- Create integration tests for new features
-- Update tests when changing existing functionality
+## Loop Detection and Prevention
+
+### Definition of Loops
+- **Repetitive actions**: doing the same action 3+ times with same/similar result
+- **Error loops**: encountering same error repeatedly despite attempts to fix
+- **Search loops**: searching for same thing in multiple places without finding it
+- **Implementation loops**: trying same solution approach that keeps failing
+
+### Loop Detection Rules
+- **Must track**: count identical/similar actions or errors
+- **Loop threshold**: after 2 identical failures, **must stop** before third attempt
+- **Pattern recognition**: if output/error is >80% similar to previous, consider it same
+- **Action types** that count toward loops:
+  - Same command with same error
+  - Same file edit that gets rejected/fails
+  - Same search with no results
+  - Same test/build failure
+  - Same API call with same error response
+
+### Required Actions on Loop Detection
+- **Immediate stop**: do not attempt third iteration
+- **Inform user**: "I appear to be stuck in a loop trying to [action]. The same [error/result] occurred twice."
+- **Ask for guidance**: "Should I try a different approach or would you like to provide guidance?"
+- **Save tokens**: stop all automated attempts until user responds
+
+### Prevention
+- **Vary approach**: after first failure, must try different solution
+- **Check assumptions**: verify prerequisites before retrying
+- **Read errors carefully**: ensure understanding error before retry
 
 ## Communication Standards
 
@@ -157,27 +182,6 @@ These rules apply to ALL projects and should be followed regardless of project t
 - Respect privacy and data protection
 - Follow responsible disclosure for security issues
 
-## Project Integration
-
-### Hierarchy of Rules
-1. These universal rules always apply
-2. Language-specific requirements (Python, Node.js, etc.) apply when relevant
-3. Project-specific CLAUDE.md files add additional rules
-4. Command files in `.claude/commands/` provide specialized workflows
-5. User instructions during the session take precedence
-
-### Reading Project Context
-- Check for existing CLAUDE.md in the project
-- Look for .cursorrules or .github/copilot-instructions.md
-- Review README.md for project-specific guidelines
-- Examine existing code to understand conventions
-
-### Command Usage
-- Commands in `.claude/commands/` are reusable workflows
-- Use `/init` to set up project-specific configurations
-- Commands should follow these universal rules
-- Document command assumptions and requirements
-
 ## Performance Optimization
 
 ### Efficient Tool Usage
@@ -191,6 +195,11 @@ These rules apply to ALL projects and should be followed regardless of project t
 - Don't read entire codebases unnecessarily
 - Use grep/search for finding specific code
 - Summarize findings concisely
+
+### Performance Limits
+- **Query limits**: always use pagination (10-20 items per page)
+- **File operations**: read/write in chunks for files >1MB
+- **Timeout awareness**: long-running operations need progress updates
 
 ## Error Handling
 
@@ -206,19 +215,25 @@ These rules apply to ALL projects and should be followed regardless of project t
 - Help diagnose root causes
 - Maintain work progress despite errors
 
-## Language-Specific Requirements
+## Project Integration
 
-### Python Projects
-- ALWAYS use virtual environments (.venv)
-- Check for existing .venv directory, activate if present
-- Create .venv if it doesn't exist: `python -m venv .venv`
-- Activate before any Python operations:
-  - Linux/Mac: `source .venv/bin/activate`
-  - Windows: `.venv\Scripts\activate`
-- ONLY install packages inside the activated virtual environment
-- NEVER install packages globally or outside of .venv
-- Always update requirements.txt after installing new packages
-- Verify virtual environment is active before running pip commands
+### Hierarchy of Rules
+1. These universal rules always apply
+2. Language-specific requirements apply when relevant
+3. Project-specific CLAUDE.md files add additional rules
+4. Command files in `.claude/commands/` provide specialized workflows
+5. User instructions during the session take precedence
+
+### Reading Project Context
+- Check for existing CLAUDE.md in the project
+- Look for .cursorrules or .github/copilot-instructions.md
+- Review README.md for project-specific guidelines
+- Examine existing code to understand conventions
+
+### Command Usage
+- Commands in `.claude/commands/` are reusable workflows
+- Commands should follow these universal rules
+- Document command assumptions and requirements
 
 ## Continuous Improvement
 
@@ -233,3 +248,9 @@ These rules apply to ALL projects and should be followed regardless of project t
 - Adjust approach based on feedback
 - Remember project-specific preferences
 - Update understanding as project evolves
+
+# Important Instruction Reminders
+- Do what has been asked; nothing more, nothing less
+- NEVER create files unless they're absolutely necessary for achieving your goal
+- ALWAYS prefer editing an existing file to creating a new one
+- NEVER proactively create documentation files (*.md) or README files. Only create documentation files if explicitly requested by the User
