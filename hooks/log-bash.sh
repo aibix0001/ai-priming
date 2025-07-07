@@ -12,6 +12,11 @@ timestamp=$(date '+%Y-%m-%d %H:%M:%S')
 # Read JSON data from stdin
 json_input=$(cat)
 
+# Debug: Log the raw input to understand what we're receiving
+echo "[$timestamp] DEBUG: Raw input received:" >> .claude/logs/debug.log
+echo "$json_input" >> .claude/logs/debug.log
+echo "---" >> .claude/logs/debug.log
+
 # Extract command details using jq (fallback to basic parsing if jq not available)
 if command -v jq >/dev/null 2>&1; then
     command_description=$(echo "$json_input" | jq -r '.tool_input.description // "No description"')
