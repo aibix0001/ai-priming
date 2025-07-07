@@ -41,7 +41,7 @@ if [[ -n "$recent_commands" ]]; then
     echo "" >> .claude/logs/refresh.log
     
     # Extract unique command names from memory
-    commands=$(grep -o '/[a-zA-Z]*' "$memory_file" 2>/dev/null | sort -u | tr '\n' ' ')
+    commands=$(grep -o '@\.claude/commands/[a-zA-Z]*\.md' "$memory_file" 2>/dev/null | sed 's/@\.claude\/commands\///g' | sed 's/\.md//g' | sort -u | tr '\n' ' ')
     
     if [[ -n "$commands" ]]; then
         echo "Commands used in this project: $commands" >> .claude/logs/refresh.log
