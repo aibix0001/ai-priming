@@ -30,6 +30,7 @@ token.json
 
 # Claude hooks state files
 .claude-last-refresh
+.claude-commands.memory
 
 # Environment files
 .env

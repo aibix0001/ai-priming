@@ -2,6 +2,20 @@
 
 This file provides universal guidance to Claude Code when working with code in any repository.
 
+## MANDATORY SESSION INITIALIZATION - EXECUTE IMMEDIATELY
+
+**CRITICAL**: This rule is NON-NEGOTIABLE and must be the FIRST action taken in every session.
+
+**MANDATORY Rule Refresh**: At the start of EVERY session, the assistant MUST:
+1. Check for `.claude-commands.memory` file in the project root
+2. If the file exists, read it completely
+3. For each command listed (e.g., `/python`, `/ansible`), immediately read the corresponding command file from `.claude/commands/`
+4. Apply all rules from those command files for the entire session
+
+**FAILURE TO FOLLOW THIS RULE IS UNACCEPTABLE**
+
+This ensures the assistant starts with complete project context and applies all relevant specialized rules immediately.
+
 ## Universal Rules of Engagement for AI Assistants
 
 These rules apply to ALL projects and should be followed regardless of project type, language, or framework.
@@ -44,12 +58,6 @@ These rules apply to ALL projects and should be followed regardless of project t
 - Respect existing architectural decisions
 - Use established libraries and frameworks already in the project
 
-## Session Initialization
-
-**Rule Refresh Check**: At the start of each session, check for command memory:
-- If `.claude-commands.memory` exists, read it and refresh understanding of those command files
-- This ensures the assistant starts with current project context
-- Example: If memory shows `/python /ansible`, re-read python.md and ansible.md
 
 ## Development Workflow Rules
 
