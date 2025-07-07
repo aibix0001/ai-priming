@@ -1,4 +1,4 @@
-# CLAUDE-generic.md
+# CLAUDE.md
 
 This file provides universal guidance to Claude Code when working with code in any repository.
 
