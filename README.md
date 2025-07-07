@@ -32,20 +32,38 @@ This repository serves as the single source of truth for AI assistant configurat
   - Requirements.txt maintenance
 
 ### ✅ Command Infrastructure
-- `.claude/commands/` directory structure established
+- `commands/` directory with specialized workflows:
+  - Ansible automation and playbook management
+  - NetBox network documentation and management
+  - Python development best practices
+  - Secrets management and security practices
+  - Testing framework setup and configuration
+  - VyOS network device configuration
 - Command template documentation and best practices
 - Support for reusable workflows
 - Command inheritance system
+
+### ✅ Setup Automation
+- `setup.sh` script for automatic symlink creation
+- Support for both global (~/.claude/) and per-project configurations
+- Idempotent setup process (safe to run multiple times)
 
 ## Repository Structure
 
 ```
 ai-priming/
 ├── CLAUDE.md                 # Universal rules for all projects
-├── .claude/
-│   └── commands/            # Reusable command templates
-│       └── README.md       # Command documentation and template
-└── README.md               # This file
+├── commands/                 # Reusable command templates
+│   ├── README.md            # Command documentation and template
+│   ├── ansible.md           # Ansible automation workflows
+│   ├── netbox.md            # NetBox management commands
+│   ├── python.md            # Python development workflows
+│   ├── secrets.md           # Secrets management practices
+│   ├── testing.md           # Testing framework setup
+│   └── vyos.md              # VyOS configuration management
+├── setup.sh                 # Setup script for symlink creation
+├── settings.local.json      # Local Claude settings
+└── README.md                # This file
 ```
 
 ## Rule Hierarchy
@@ -58,11 +76,29 @@ ai-priming/
 
 ## Getting Started
 
-To use this framework in your project:
+### Option 1: Global Setup (Recommended)
 
-1. Copy the universal `CLAUDE.md` to your project root
-2. Extend with project-specific rules as needed
-3. AI assistants will automatically follow the established hierarchy
+Use the setup script to create symlinks in your home directory:
+
+```bash
+git clone https://github.com/your-username/ai-priming.git
+cd ai-priming
+./setup.sh
+```
+
+This creates symlinks in `~/.claude/` that Claude will automatically discover for all projects.
+
+### Option 2: Per-Project Setup
+
+For project-specific configuration:
+
+1. Clone or copy this repository to your project as `.claude/`
+2. Claude will automatically find and use the configuration
+3. Extend with project-specific rules as needed
+
+### Option 3: Manual Copy
+
+Copy the universal `CLAUDE.md` to your project root and extend with project-specific rules as needed.
 
 ## Planned Features
 
