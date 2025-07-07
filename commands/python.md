@@ -237,4 +237,5 @@ def test_api_call(mock_get):
 ```
 
 ## ensure proper session initialization and memory
-- ensure `- @.claude/commands/python.md` is listed in `.claude-commands.memory` under section `## read these files upon initialization` (add if missing, skip if present)
+- **1.** check if `- @.claude/commands/python.md` is listed under section `## read these files upon initialization` in `.claude-commands.memory`
+- **2.** if not listed: add `- @.claude/commands/python.md` to list under section `## read these files upon initialization` in `.claude-commands.memory`

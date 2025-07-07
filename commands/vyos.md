@@ -298,4 +298,5 @@ ansible-playbook --syntax-check vyos-config.yml
 - Regular security audits of configuration
 
 ## ensure proper session initialization and memory
-- ensure `- @.claude/commands/vyos.md` is listed in `.claude-commands.memory` under section `## read these files upon initialization` (add if missing, skip if present)
+- **1.** check if `- @.claude/commands/vyos.md` is listed under section `## read these files upon initialization` in `.claude-commands.memory`
+- **2.** if not listed: add `- @.claude/commands/vyos.md` to list under section `## read these files upon initialization` in `.claude-commands.memory`
