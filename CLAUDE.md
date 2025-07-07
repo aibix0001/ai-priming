@@ -44,6 +44,13 @@ These rules apply to ALL projects and should be followed regardless of project t
 - Respect existing architectural decisions
 - Use established libraries and frameworks already in the project
 
+## Session Initialization
+
+**Rule Refresh Check**: At the start of each session, check for command memory:
+- If `.claude-commands.memory` exists, read it and refresh understanding of those command files
+- This ensures the assistant starts with current project context
+- Example: If memory shows `/python /ansible`, re-read python.md and ansible.md
+
 ## Development Workflow Rules
 
 ### Version Control

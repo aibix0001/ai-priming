@@ -79,6 +79,8 @@ ai-priming/
 │   └── vyos.md              # VyOS configuration management
 ├── setup.sh                 # Setup script for symlink creation
 ├── .gitignore               # Excludes local settings and credentials
+├── plans/                   # Enhancement documentation
+│   └── hook-improvements.md # Hooks system improvements
 └── README.md                # This file
 ```
 
@@ -137,15 +139,15 @@ This repository includes a comprehensive hooks system that provides:
 
 ### Rule Refresh System
 - **Command memory**: Tracks which commands have been used in the project
-- **Automatic refresh**: Periodically reminds assistant to refresh understanding of used command files
+- **Dual refresh strategy**: Session start refresh (immediate) + periodic refresh (15-minute cooldown)
 - **Context awareness**: Ensures assistant stays current with project-specific rules
+- **Token optimization**: Time-based cooldown prevents context pollution from frequent refreshes
 
 ### Hook Configuration
 The hooks are configured in `.claude/settings.json` and execute at specific lifecycle events:
 - **PreToolUse**: Before tool execution (validation, logging)
 - **PostToolUse**: After tool completion (formatting, cleanup)
-- **Notification**: During notifications (rule refresh)
-- **Stop**: When assistant finishes (final refresh)
+- **Notification**: During notifications (rule refresh with 15-minute cooldown)
 
 All hooks are designed to be non-blocking and provide helpful feedback without interrupting workflow.
 
