@@ -91,29 +91,24 @@ ai-priming/
 
 ## Getting Started
 
-### Option 1: Global Setup (Recommended)
+### Setting Up a New Project
 
-Use the setup script to create symlinks in your home directory:
+To use this AI priming framework in your project:
 
 ```bash
-git clone https://github.com/aibix0001/ai-priming.git
-cd ai-priming
-./setup.sh
+git clone https://github.com/aibix0001/ai-priming.git <your project folder>/.claude
 ```
 
-This creates symlinks in `~/.claude/` that Claude will automatically discover for all projects.
+This will create a `.claude` directory inside your project folder containing all the AI assistant configuration and rules. **This becomes the `.claude` folder for your new project**.
 
-### Option 2: Per-Project Setup
+After cloning, you can:
 
-For project-specific configuration:
+1. Start Claude Code in your project folder: `claude code <your project folder>`
+2. Claude will automatically discover and use the configuration from the `.claude` directory
+3. Extend with project-specific rules by creating `CLAUDE.local.md` in your project root
+4. Add command-specific workflows as needed
 
-1. Clone or copy this repository to your project as `.claude/`
-2. Claude will automatically find and use the configuration
-3. Extend with project-specific rules as needed
-
-### Option 3: Manual Copy
-
-Copy the universal `CLAUDE.md` to your project root and extend with project-specific rules as needed.
+The `.claude` directory provides the foundation for consistent AI assistant behavior across your entire project development lifecycle.
 
 ## Claude Hooks System
 
