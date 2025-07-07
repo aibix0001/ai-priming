@@ -186,13 +186,48 @@ def handle_netbox_error(response):
         response.raise_for_status()
 ```
 
+## Secrets Management
+
+### API Token Configuration
+```bash
+# Required environment variables
+NETBOX_URL=https://netbox.example.com
+NETBOX_API_TOKEN=<YOUR_NETBOX_API_TOKEN>
+```
+
+### API Authentication
+- Store API token in `.env` file following `secrets.md` guidelines
+- Use `--insecure` flag for self-signed certificates
+- Never hardcode credentials in scripts or configuration files
+
+## Testing and Validation
+
+### API Integration Testing
+- Test connectivity before bulk operations
+- Validate API responses and error handling
+- Use pagination to test data retrieval
+- Verify CRUD operations in development environment
+
+### Example Test Pattern
+```bash
+# Test API connectivity
+curl -s --insecure \
+  -H "Authorization: Token $NETBOX_API_TOKEN" \
+  "$NETBOX_URL/api/" | jq -e '.dcim'
+```
+
 ## Integration with Other Commands
 
-This command works with:
-- `/secrets` - for API token management
-- `/ansible` - for dynamic inventory integration
-- `/python` - for NetBox API client development
+**Required Reading**: Before applying NetBox-specific rules, the assistant must read:
+- `secrets.md` - for universal API token management principles
+- `testing.md` - for API integration testing strategies
 - Generic CLAUDE.md rules for version control and change management
+
+**Related Commands**: This command also works with:
+- `ansible.md` - for dynamic inventory integration
+- `python.md` - for NetBox API client development
+
+This command extends and implements the universal principles defined in the required files.
 
 ## Common Workflows
 

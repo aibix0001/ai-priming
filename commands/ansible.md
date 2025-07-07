@@ -251,12 +251,78 @@ ansible-playbook -i inventory playbook.yml
 - Implement progress reporting for long-running tasks
 - Consider using `async` for long-running operations
 
+## Secrets Management
+
+### Environment Variables
+- **Vault password**: Use `ANSIBLE_VAULT_PASSWORD_FILE` environment variable
+- **API credentials**: Use `lookup('env', 'VARIABLE_NAME')` in playbooks
+- **Inventory credentials**: Never hardcode credentials in inventory files
+
+```yaml
+# In playbook
+- name: Connect to API
+  uri:
+    url: "{{ lookup('env', 'API_BASE_URL') }}/endpoint"
+    headers:
+      Authorization: "Bearer {{ lookup('env', 'API_TOKEN') }}"
+```
+
+### Ansible Vault
+- **Vault usage**: Use Ansible Vault for sensitive data
+- **Password management**: Store vault password in environment variable
+- **File encryption**: Encrypt sensitive variable files
+
+```bash
+# Vault configuration
+ANSIBLE_VAULT_PASSWORD=<YOUR_VAULT_PASSWORD>
+ANSIBLE_VAULT_PASSWORD_FILE=.vault_pass
+
+# Encrypt sensitive vars
+ansible-vault encrypt group_vars/all/vault.yml
+
+# Run playbook with vault
+ansible-playbook -i inventory playbook.yml --ask-vault-pass
+```
+
+## Testing and Validation
+
+### Ansible-Specific Testing
+- **Syntax check**: Use `ansible-playbook --syntax-check playbook.yml`
+- **Dry run**: Use `ansible-playbook --check playbook.yml` as primary test method
+- **Lint check**: Use `ansible-lint playbook.yml` for best practices
+- **Molecule**: Use for complex role testing scenarios
+
+### Test Commands
+```bash
+# Syntax validation
+ansible-playbook --syntax-check playbook.yml
+
+# Dry run (preferred test method)
+ansible-playbook --check playbook.yml
+
+# Lint check
+ansible-lint playbook.yml
+
+# Molecule testing
+molecule test
+```
+
+### Testing Strategy
+- **Before deployment**: Always run syntax check and dry run
+- **Limited testing**: Use `--limit` to test on subset of hosts first
+- **Validation**: Test connectivity with `ansible all -m ping`
+- **Post-deployment**: Verify changes on target devices
+
 ## Integration with Other Commands
 
-This command works with:
-- `/secrets` - for credential and environment variable management
-- `/netbox` - for dynamic inventory and device management
-- `/vyos` - for VyOS-specific configuration rules
-- `/python` - for custom module development
-- `/testing` - for playbook testing strategies
+**Required Reading**: Before applying Ansible-specific rules, the assistant must read:
+- `secrets.md` - for universal credential management principles
+- `testing.md` - for universal testing philosophy and organization
 - Generic CLAUDE.md rules for version control and change management
+
+**Related Commands**: This command also works with:
+- `netbox.md` - for dynamic inventory and device management
+- `vyos.md` - for VyOS-specific configuration rules
+- `python.md` - for custom module development
+
+This command extends and implements the universal principles defined in the required files.

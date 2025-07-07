@@ -1,15 +1,15 @@
 # Claude Commands
 
-This directory contains reusable command templates for Claude Code to help set up and manage different types of projects.
+This directory contains specialized workflow commands for Claude Code to help with infrastructure management, development workflows, and operational tasks.
 
 ## How Commands Work
 
-Commands are markdown files that provide structured instructions for Claude to execute specific workflows. When a user runs a command (e.g., `/init nodejs`), Claude will:
+Commands are markdown files that provide structured instructions and best practices for Claude to follow when working with specific technologies or workflows. These commands contain:
 
-1. Look for the corresponding command file (e.g., `init-nodejs.md`)
-2. Parse the instructions and requirements
-3. Execute the workflow step by step
-4. Apply project-specific configurations
+1. Technology-specific guidelines and conventions
+2. Security best practices and requirements
+3. Workflow templates and common patterns
+4. Configuration standards and examples
 
 ## Command Structure
 
@@ -43,22 +43,17 @@ Instructions or commands to run after setup
 
 ## Available Commands
 
-### Project Initialization
-- `init-nodejs.md` - Initialize a Node.js project
-- `init-python.md` - Initialize a Python project
-- `init-rust.md` - Initialize a Rust project
-- `init-react.md` - Initialize a React application
-- `init-nextjs.md` - Initialize a Next.js application
+### Infrastructure & Automation
+- `ansible.md` - Ansible automation workflows and playbook management
+- `netbox.md` - NetBox network documentation and device management
+- `vyos.md` - VyOS network device configuration and management
 
-### Development Workflows
-- `add-testing.md` - Add testing framework to existing project
-- `add-linting.md` - Set up linting and formatting
-- `add-ci.md` - Configure continuous integration
+### Development & Testing
+- `python.md` - Python development workflows and best practices
+- `testing.md` - Testing framework setup and configuration guidelines
 
-### Utility Commands
-- `analyze-deps.md` - Analyze and update dependencies
-- `security-audit.md` - Run security audits
-- `performance-check.md` - Analyze performance bottlenecks
+### Security & Operations
+- `secrets.md` - Secrets management and security best practices
 
 ## Creating New Commands
 

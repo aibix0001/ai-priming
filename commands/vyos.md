@@ -234,14 +234,53 @@ For complex setups (VPNs, BGP, OSPF), always:
   register: connectivity_test
 ```
 
+## Secrets Management
+
+### Device Authentication
+```bash
+# Required environment variables
+VYOS_USERNAME=<YOUR_VYOS_USERNAME>
+VYOS_PASSWORD=<YOUR_VYOS_PASSWORD>
+```
+
+### Credential Handling
+- Store device credentials in `.env` file following `secrets.md` guidelines
+- Use environment variable lookup in Ansible playbooks
+- Never hardcode passwords in playbooks or inventory files
+- Implement credential rotation procedures
+
+## Testing and Validation
+
+### VyOS-Specific Testing
+- **Primary test method**: Use `ansible-playbook --check` for dry runs
+- **Connectivity testing**: Use `ansible all -m ping` before configuration
+- **Configuration validation**: Use `commit-confirm` for critical changes
+- **Post-change verification**: Run show commands to verify configuration
+
+### Testing Commands
+```bash
+# Test connectivity
+ansible vyos_hosts -m ping
+
+# Dry run configuration
+ansible-playbook --check vyos-config.yml
+
+# Validate syntax
+ansible-playbook --syntax-check vyos-config.yml
+```
+
 ## Integration with Other Commands
 
-This command works with:
-- `/ansible` - for playbook development and execution
-- `/secrets` - for credential management
-- `/netbox` - for device inventory and documentation
-- `/testing` - for configuration testing strategies
+**Required Reading**: Before applying VyOS-specific rules, the assistant must read:
+- `secrets.md` - for universal credential management principles
+- `testing.md` - for configuration testing philosophy
 - Generic CLAUDE.md rules for version control and change management
+
+**Related Commands**: This command also works with:
+- `ansible.md` - for playbook development and execution
+- `netbox.md` - for device inventory and documentation
+
+This command extends and implements the universal principles defined in the required files.
 
 ## Performance and Monitoring
 

@@ -132,9 +132,115 @@ except Exception as e:
     raise
 ```
 
+## Secrets Management
+
+### Environment Variables
+- **Use python-dotenv**: Load environment variables from `.env` file
+- **Add to requirements**: Include `python-dotenv` in requirements.txt
+- **Load at startup**: Call `load_dotenv()` at the beginning of scripts
+
+```python
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+API_TOKEN = os.getenv('API_TOKEN')
+DB_PASSWORD = os.getenv('DB_PASSWORD')
+```
+
+### Configuration Class Pattern
+```python
+class Config:
+    def __init__(self):
+        load_dotenv()
+        self.api_token = os.getenv('API_TOKEN')
+        self.db_password = os.getenv('DB_PASSWORD')
+        self.debug = os.getenv('DEBUG', 'False').lower() == 'true'
+```
+
+### Required Environment Variables
+```python
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+# Check required environment variables
+REQUIRED_VARS = ['API_TOKEN', 'DB_PASSWORD', 'SECRET_KEY']
+
+for var in REQUIRED_VARS:
+    if not os.getenv(var):
+        raise ValueError(f"Required environment variable {var} is not set")
+```
+
+## Testing Framework
+
+### Test Detection and Execution
+- **Frameworks**: pytest (preferred), unittest, nose2, tox
+- **Detection**: Look for pytest.ini, tox.ini, setup.cfg, pyproject.toml
+- **Commands**: Run tests after changes, create unit tests for new functions
+
+### Test Commands
+```bash
+# pytest (preferred)
+pytest                    # Run all tests
+pytest tests/            # Run tests in directory
+pytest -v               # Verbose output
+pytest -x               # Stop on first failure
+pytest --cov=module     # Coverage report
+
+# unittest
+python -m unittest discover
+python -m unittest tests.test_module
+```
+
+### Test Structure
+```python
+# test_example.py
+import pytest
+from mymodule import my_function
+
+def test_my_function():
+    result = my_function("input")
+    assert result == "expected_output"
+    
+def test_my_function_edge_case():
+    with pytest.raises(ValueError):
+        my_function(None)
+```
+
+### Test Configuration
+```ini
+# pytest.ini
+[tool:pytest]
+testpaths = tests
+python_files = test_*.py
+python_classes = Test*
+python_functions = test_*
+addopts = -v --tb=short
+```
+
+### Coverage and Mocking
+```python
+# Coverage
+pytest --cov=mymodule --cov-report=html
+
+# Mocking with unittest.mock
+from unittest.mock import patch, Mock
+
+@patch('requests.get')
+def test_api_call(mock_get):
+    mock_get.return_value.json.return_value = {'status': 'success'}
+    result = my_api_function()
+    assert result == {'status': 'success'}
+```
+
 ## Integration with Other Commands
 
-This command works well with:
-- `/secrets` - for environment variable management
-- `/testing` - for comprehensive testing strategies
+**Required Reading**: Before applying Python-specific rules, the assistant must read:
+- `secrets.md` - for universal .env file management principles
+- `testing.md` - for universal testing philosophy and organization
 - Generic CLAUDE.md rules always apply as foundation
+
+This command extends and implements the universal principles defined in those files.
