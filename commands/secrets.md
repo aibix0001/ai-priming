@@ -69,3 +69,12 @@ Tool-specific credential handling:
 - See `ansible.md` for vault and inventory management
 - See `netbox.md` for NetBox API token configuration
 - See `vyos.md` for device authentication setup
+
+## Command Memory Tracking
+
+**Important**: When this command is invoked, add the following to the project's command memory:
+```bash
+echo "$(date '+%Y-%m-%d %H:%M:%S'): /secrets" >> .claude-commands.memory
+```
+
+This helps track which commands have been used in the project for automatic rule refreshing.

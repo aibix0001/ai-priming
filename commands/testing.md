@@ -92,3 +92,12 @@ Language and tool-specific testing:
 - See `netbox.md` for API integration testing
 - See `vyos.md` for network device testing
 - Follow `secrets.md` for test environment configuration
+
+## Command Memory Tracking
+
+**Important**: When this command is invoked, add the following to the project's command memory:
+```bash
+echo "$(date '+%Y-%m-%d %H:%M:%S'): /testing" >> .claude-commands.memory
+```
+
+This helps track which commands have been used in the project for automatic rule refreshing.

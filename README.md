@@ -48,11 +48,27 @@ This repository serves as the single source of truth for AI assistant configurat
 - Support for both global (~/.claude/) and per-project configurations
 - Idempotent setup process (safe to run multiple times)
 
+### ✅ Claude Hooks Integration
+- Comprehensive hooks system for automation and safety
+- Command logging and git operation validation
+- File modification monitoring for important files
+- Automatic code formatting when supported tools are available
+- Rule refresh system with command memory tracking
+- Periodic assistant context refresh based on used commands
+
 ## Repository Structure
 
 ```
 ai-priming/
 ├── CLAUDE.md                 # Universal rules for all projects
+├── .claude/                  # Claude Code configuration
+│   ├── settings.json        # Hooks configuration
+│   └── hooks/               # Hook scripts
+│       ├── log-bash.sh      # Command logging
+│       ├── validate-git.sh  # Git operation validation
+│       ├── monitor-files.sh # File change monitoring
+│       ├── format-code.sh   # Auto-formatting
+│       └── refresh-rules.sh # Rule refresh system
 ├── commands/                 # Reusable command templates
 │   ├── README.md            # Command documentation and template
 │   ├── ansible.md           # Ansible automation workflows
@@ -99,6 +115,39 @@ For project-specific configuration:
 ### Option 3: Manual Copy
 
 Copy the universal `CLAUDE.md` to your project root and extend with project-specific rules as needed.
+
+## Claude Hooks System
+
+This repository includes a comprehensive hooks system that provides:
+
+### Automated Logging
+- **Command tracking**: All bash commands are logged with timestamps
+- **File monitoring**: Changes to important files (CLAUDE.md, commands/, etc.) are tracked
+- **Git validation**: Ensures commit messages follow conventional format standards
+
+### Safety Features
+- **Git operation validation**: Prevents dangerous operations like force pushes
+- **File change alerts**: Monitors modifications to critical configuration files
+- **Error prevention**: Validates command patterns before execution
+
+### Code Quality
+- **Auto-formatting**: Automatically formats code using available tools (black, prettier, shfmt)
+- **Syntax validation**: Checks file syntax where applicable
+- **Consistent standards**: Enforces project coding conventions
+
+### Rule Refresh System
+- **Command memory**: Tracks which commands have been used in the project
+- **Automatic refresh**: Periodically reminds assistant to refresh understanding of used command files
+- **Context awareness**: Ensures assistant stays current with project-specific rules
+
+### Hook Configuration
+The hooks are configured in `.claude/settings.json` and execute at specific lifecycle events:
+- **PreToolUse**: Before tool execution (validation, logging)
+- **PostToolUse**: After tool completion (formatting, cleanup)
+- **Notification**: During notifications (rule refresh)
+- **Stop**: When assistant finishes (final refresh)
+
+All hooks are designed to be non-blocking and provide helpful feedback without interrupting workflow.
 
 ## Planned Features
 
