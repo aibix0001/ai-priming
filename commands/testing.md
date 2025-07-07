@@ -97,7 +97,7 @@ Language and tool-specific testing:
 
 **Important**: When this command is invoked, add the following to the project's command memory:
 ```bash
-echo "$(date '+%Y-%m-%d %H:%M:%S'): .claude/commands/testing.md" >> .claude-commands.memory
+echo ".claude/commands/testing.md" >> .claude-commands.memory
 ```
 
 This helps track which commands have been used in the project for automatic rule refreshing.

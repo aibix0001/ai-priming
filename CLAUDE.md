@@ -9,8 +9,9 @@ This file provides universal guidance to Claude Code when working with code in a
 **MANDATORY Rule Refresh**: At the start of EVERY session, the assistant MUST:
 1. Check for `.claude-commands.memory` file in the project root
 2. If the file exists, read it completely
-3. For each command listed (e.g., `/python`, `/ansible`), immediately read the corresponding command file from `.claude/commands/`
+3. For each file path listed (e.g., `.claude/commands/python.md`, `.claude/commands/ansible.md`), immediately read the corresponding command file
 4. Apply all rules from those command files for the entire session
+5. List the files read and confirm you have understood and applied them
 
 **FAILURE TO FOLLOW THIS RULE IS UNACCEPTABLE**
 
