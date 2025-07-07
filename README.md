@@ -134,6 +134,14 @@ This repository includes a comprehensive hooks system that provides:
 - **Syntax validation**: Checks file syntax where applicable
 - **Consistent standards**: Enforces project coding conventions
 
+#### Supported Formatters
+To enable automatic code formatting, install the following tools:
+- **Python**: `pip install black` - Formats .py files
+- **JavaScript/TypeScript/JSON**: `npm install -g prettier` - Formats .js, .ts, .json files
+- **Shell Scripts**: Install `shfmt` - Formats .sh files
+
+The formatting hook will silently skip files if the corresponding formatter is not available.
+
 ### Rule Refresh System
 - **Command memory**: Tracks which commands have been used in the project
 - **Dual refresh strategy**: Session start refresh (immediate) + periodic refresh (15-minute cooldown)
@@ -162,4 +170,4 @@ New commands and rule improvements should follow the established patterns and be
 
 ## License
 
-MIT
+MIT License
