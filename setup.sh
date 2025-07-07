@@ -43,8 +43,14 @@ if [[ ! -d "$REPO_PATH/commands" ]]; then
     exit 1
 fi
 
-if [[ ! -d "$REPO_PATH/.claude" ]]; then
-    print_error ".claude directory not found in $REPO_PATH"
+if [[ ! -d "$REPO_PATH/hooks" ]]; then
+    print_error "hooks directory not found in $REPO_PATH"
+    print_error "This script must be run from the ai-priming repository root"
+    exit 1
+fi
+
+if [[ ! -f "$REPO_PATH/settings.json" ]]; then
+    print_error "settings.json not found in $REPO_PATH"
     print_error "This script must be run from the ai-priming repository root"
     exit 1
 fi
@@ -95,8 +101,8 @@ if [[ ! -L "$SETTINGS_LINK" ]]; then
         print_warning "File exists but is not a symlink: $SETTINGS_LINK"
         print_warning "Please remove it manually if you want to create the symlink"
     else
-        ln -s "$REPO_PATH/.claude/settings.json" "$SETTINGS_LINK"
-        print_info "Created symlink: $SETTINGS_LINK -> $REPO_PATH/.claude/settings.json"
+        ln -s "$REPO_PATH/settings.json" "$SETTINGS_LINK"
+        print_info "Created symlink: $SETTINGS_LINK -> $REPO_PATH/settings.json"
     fi
 else
     print_info "Symlink already exists: $SETTINGS_LINK"
@@ -109,8 +115,8 @@ if [[ ! -L "$HOOKS_LINK" ]]; then
         print_warning "Directory/file exists but is not a symlink: $HOOKS_LINK"
         print_warning "Please remove it manually if you want to create the symlink"
     else
-        ln -s "$REPO_PATH/.claude/hooks" "$HOOKS_LINK"
-        print_info "Created symlink: $HOOKS_LINK -> $REPO_PATH/.claude/hooks"
+        ln -s "$REPO_PATH/hooks" "$HOOKS_LINK"
+        print_info "Created symlink: $HOOKS_LINK -> $REPO_PATH/hooks"
     fi
 else
     print_info "Symlink already exists: $HOOKS_LINK"

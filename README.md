@@ -61,14 +61,13 @@ This repository serves as the single source of truth for AI assistant configurat
 ```
 ai-priming/
 ├── CLAUDE.md                 # Universal rules for all projects
-├── .claude/                  # Claude Code configuration
-│   ├── settings.json        # Hooks configuration
-│   └── hooks/               # Hook scripts
-│       ├── log-bash.sh      # Command logging
-│       ├── validate-git.sh  # Git operation validation
-│       ├── monitor-files.sh # File change monitoring
-│       ├── format-code.sh   # Auto-formatting
-│       └── refresh-rules.sh # Rule refresh system
+├── settings.json            # Hooks configuration
+├── hooks/                   # Hook scripts
+│   ├── log-bash.sh          # Command logging
+│   ├── validate-git.sh      # Git operation validation
+│   ├── monitor-files.sh     # File change monitoring
+│   ├── format-code.sh       # Auto-formatting
+│   └── refresh-rules.sh     # Rule refresh system
 ├── commands/                 # Reusable command templates
 │   ├── README.md            # Command documentation and template
 │   ├── ansible.md           # Ansible automation workflows
@@ -144,7 +143,7 @@ This repository includes a comprehensive hooks system that provides:
 - **Token optimization**: Time-based cooldown prevents context pollution from frequent refreshes
 
 ### Hook Configuration
-The hooks are configured in `.claude/settings.json` and execute at specific lifecycle events:
+The hooks are configured in `settings.json` and execute at specific lifecycle events:
 - **PreToolUse**: Before tool execution (validation, logging)
 - **PostToolUse**: After tool completion (formatting, cleanup)
 - **Notification**: During notifications (rule refresh with 15-minute cooldown)
