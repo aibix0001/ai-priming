@@ -103,10 +103,11 @@ This will create a `.claude` directory inside your project folder containing all
 
 After cloning, you can:
 
-1. Start Claude Code in your project folder: `claude code <your project folder>`
-2. Claude will automatically discover and use the configuration from the `.claude` directory
-3. Extend with project-specific rules by creating `CLAUDE.local.md` in your project root
-4. Add command-specific workflows as needed
+1. Navigate to your project folder: `cd <your project folder>`
+2. Start Claude Code: `claude`
+3. Claude will automatically discover and use the configuration from the `.claude` directory
+4. Extend with project-specific rules by creating `CLAUDE.local.md` in your project root
+5. Add command-specific workflows as needed
 
 The `.claude` directory provides the foundation for consistent AI assistant behavior across your entire project development lifecycle.
 
