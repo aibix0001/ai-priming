@@ -62,7 +62,7 @@ ai-priming/
 │   ├── testing.md           # Testing framework setup
 │   └── vyos.md              # VyOS configuration management
 ├── setup.sh                 # Setup script for symlink creation
-├── settings.local.json      # Local Claude settings
+├── .gitignore               # Excludes local settings and credentials
 └── README.md                # This file
 ```
 
