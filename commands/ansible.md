@@ -313,10 +313,5 @@ molecule test
 - **Validation**: Test connectivity with `ansible all -m ping`
 - **Post-deployment**: Verify changes on target devices
 
-## Integration with Other Commands
-
-**Required Reading**: Before applying Ansible-specific rules, the assistant must read:
-- `secrets.md` - for universal credential management principles
-- `testing.md` - for universal testing philosophy and organization
-- Generic CLAUDE.md rules for version control and change management
-- @testing.md
+## ensure proper session initialization and memory
+- ensure `- @.claude/commands/ansible.md` is listed in `.claude-commands.memory` under section `## read these files upon initialization` (add if missing, skip if present)

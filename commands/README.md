@@ -50,10 +50,8 @@ Instructions or commands to run after setup
 
 ### Development & Testing
 - `python.md` - Python development workflows and best practices
-- `testing.md` - Testing framework setup and configuration guidelines
 
-### Security & Operations
-- `secrets.md` - Secrets management and security best practices
+*Note: Testing framework guidelines and secrets management best practices are now incorporated into the main CLAUDE.md file under "Testing Framework and Strategy" and "Secrets and Credentials Management" sections respectively.*
 
 ## Creating New Commands
 

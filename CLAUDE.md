@@ -35,7 +35,10 @@ These rules apply to ALL projects and should be followed regardless of project t
 - Create tests for new functionality
 - Ensure all tests pass before considering work complete
 - Use the project's established testing framework
-- Write tests that are clear and maintainable
+- Tests should be clear and easy to understand
+- Look for test directories (test/, tests/) and test files (*_test.*, test_*.*)
+- Check project dependencies for testing frameworks
+- When no tests exist, suggest adding appropriate tests for the language/framework
 
 ### 5. Follow Conventions
 - Match the existing code style exactly
@@ -44,6 +47,72 @@ These rules apply to ALL projects and should be followed regardless of project t
 - Respect existing architectural decisions
 - Use established libraries and frameworks already in the project
 
+## Testing Framework and Strategy
+
+### Test Organization
+- Use standard test directory structure (test/, tests/, *_test.*, test_*.*)
+- Organize tests by type (unit, integration, end-to-end, smoke tests)
+- Ensure test environment is properly configured before running tests
+
+### Test Execution Strategy
+- Run existing test suite to establish baseline
+- Write tests alongside new features, run relevant tests frequently
+- Run full test suite to catch regressions, check coverage for new code
+
+### Test Quality Guidelines
+- Tests should be clear, maintainable, and easy to understand
+- Mock external dependencies (APIs, databases, file systems, network requests)
+- Aim for high coverage on new code, focus on critical path coverage
+- Read error messages carefully, identify root cause, check for environment issues
+
+### Mock Strategy
+Mock external dependencies:
+- External services and APIs
+- Database connections
+- File system operations
+- Network requests
+- Time-dependent operations
+
+## Secrets and Credentials Management
+
+### Environment File Management
+- Store all credentials, tokens, and secrets in `.env` file
+- `.env` file **must never** be committed to git
+- Ensure `.env` is in `.gitignore`
+- Create and maintain `.env.example` with placeholder values
+- When adding new env variable to `.env`, immediately add to `.env.example`
+- `.env.example` must be committed to git as reference
+
+### .env.example Format
+```bash
+# API Configuration
+API_BASE_URL=https://api.example.com
+API_TOKEN=<YOUR_API_TOKEN>
+
+# Database Configuration
+DB_HOST=localhost
+DB_PORT=5432
+DB_NAME=myapp
+DB_USER=<YOUR_DB_USER>
+DB_PASSWORD=<YOUR_DB_PASSWORD>
+
+# Remember to rotate credentials regularly
+```
+
+### Security Best Practices
+- Set restrictive permissions on `.env` file (600 or 640)
+- Add rotation reminders in `.env.example`
+- Never backup `.env` files to shared/public locations
+- Use separate files for different environments, never mix dev and production credentials
+
+### Production Considerations
+For production environments, consider:
+- HashiCorp Vault
+- AWS Secrets Manager
+- Azure Key Vault
+- Google Secret Manager
+- Kubernetes Secrets
+- Ansible Vault
 
 ## Development Workflow Rules
 
@@ -60,21 +129,21 @@ These rules apply to ALL projects and should be followed regardless of project t
 - If repository exists, use `git ls-files` to understand tracked files
 - If no repository exists, initialize with `git init`
 - Always commit changes with meaningful commit messages that enable tracking changes over time
-- Commit messages should be descriptive enough that reading the log provides a clear project history
+- Commit messages must be descriptive enough that reading the log provides a clear project history
 - ALWAYS create and maintain a .gitignore file to exclude unnecessary files from version control
 
 ### Branch Management
-- **Branch creation default**: only create branches when explicitly requested by user
-- **Branch suggestion trigger**: Claude must suggest creating a new branch when:
+- only create branches when explicitly requested by user
+- Claude must suggest creating a new branch when:
   - Task shifts to a different system/context
   - Current changes would conflict with or diverge from the existing branch's purpose
   - User requests a new feature while in the middle of another feature
   - Work scope significantly expands beyond original branch intent
-- **Suggestion format**: "This seems like a different feature/context. Should I create a new branch for this work?"
-- **Stay on branch**: continue working on current branch unless user approves branch switch
-- **One feature principle**: each branch should represent one cohesive feature or fix
-- **Merge policy**: only merge when user explicitly approves
-- **Branch retention**: after merging, **must not** delete feature branch - keep for reference
+- "This seems like a different feature/context. Should I create a new branch for this work?"
+- continue working on current branch unless user approves branch switch
+- each branch must represent one cohesive feature or fix
+- only merge when user explicitly approves
+- after merging, **must not** delete feature branch - keep for reference
 - Name branches descriptively using conventional prefixes (feature/, fix/, chore/, etc.)
 
 ### .gitignore Management
@@ -85,13 +154,10 @@ These rules apply to ALL projects and should be followed regardless of project t
 - Review and test .gitignore patterns regularly
 
 ### Environment Configuration
+- Follow the comprehensive "Secrets and Credentials Management" section above
 - Use .env files for environment-specific configuration
 - NEVER commit .env files to version control
 - ALWAYS create .env.example with template values
-- Use placeholder values in .env.example (e.g., API_KEY=your_api_key_here)
-- Document required environment variables in .env.example
-- Update .env.example whenever new environment variables are added
-- Use meaningful placeholder text that explains the purpose of each variable
 
 ### Code Verification
 - ALWAYS run linters before considering work complete
@@ -103,16 +169,16 @@ These rules apply to ALL projects and should be followed regardless of project t
 ## Loop Detection and Prevention
 
 ### Definition of Loops
-- **Repetitive actions**: doing the same action 3+ times with same/similar result
-- **Error loops**: encountering same error repeatedly despite attempts to fix
-- **Search loops**: searching for same thing in multiple places without finding it
-- **Implementation loops**: trying same solution approach that keeps failing
+- doing the same action 3+ times with same/similar result
+- encountering same error repeatedly despite attempts to fix
+- searching for same thing in multiple places without finding it
+- trying same solution approach that keeps failing
 
 ### Loop Detection Rules
-- **Must track**: count identical/similar actions or errors
-- **Loop threshold**: after 2 identical failures, **must stop** before third attempt
-- **Pattern recognition**: if output/error is >80% similar to previous, consider it same
-- **Action types** that count toward loops:
+- count identical/similar actions or errors
+- after 2 identical failures, must stop before third attempt
+- if output/error is >80% similar to previous, consider it same
+- Action types that count toward loops:
   - Same command with same error
   - Same file edit that gets rejected/fails
   - Same search with no results
@@ -120,19 +186,23 @@ These rules apply to ALL projects and should be followed regardless of project t
   - Same API call with same error response
 
 ### Required Actions on Loop Detection
-- **Immediate stop**: do not attempt third iteration
-- **Inform user**: "I appear to be stuck in a loop trying to [action]. The same [error/result] occurred twice."
-- **Ask for guidance**: "Should I try a different approach or would you like to provide guidance?"
-- **Save tokens**: stop all automated attempts until user responds
+- do not attempt third iteration
+- "I appear to be stuck in a loop trying to [action]. The same [error/result] occurred twice."
+- "Should I try a different approach or would you like to provide guidance?"
+- stop all automated attempts until user responds
 
 ### Prevention
-- **Vary approach**: after first failure, must try different solution
-- **Check assumptions**: verify prerequisites before retrying
-- **Read errors carefully**: ensure understanding error before retry
+- after first failure, must try different solution
+- verify prerequisites before retrying
+- ensure understanding error before retry
 
 ## Communication Standards
 
 ### Be Concise and Direct
+- Do not patronize the user
+- Do not exaggerate
+  - stay matter-of-factly
+  - this is a business relationship
 - Answer questions directly without unnecessary preamble
 - Use short responses when appropriate (1-4 lines for simple queries)
 - Avoid repetitive explanations
@@ -198,9 +268,9 @@ These rules apply to ALL projects and should be followed regardless of project t
 - Summarize findings concisely
 
 ### Performance Limits
-- **Query limits**: always use pagination (10-20 items per page)
-- **File operations**: read/write in chunks for files >1MB
-- **Timeout awareness**: long-running operations need progress updates
+- always use pagination (10-20 items per page)
+- read/write in chunks for files >1MB
+- long-running operations need progress updates
 
 ## Error Handling
 

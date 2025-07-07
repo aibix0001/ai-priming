@@ -236,11 +236,5 @@ def test_api_call(mock_get):
     assert result == {'status': 'success'}
 ```
 
-## Integration with Other Commands
-
-**Required Reading**: Before applying Python-specific rules, the assistant must read:
-- `secrets.md` - for universal .env file management principles
-- `testing.md` - for universal testing philosophy and organization
-- Generic CLAUDE.md rules always apply as foundation
-
-This command extends and implements the universal principles defined in those files.
+## ensure proper session initialization and memory
+- ensure `- @.claude/commands/python.md` is listed in `.claude-commands.memory` under section `## read these files upon initialization` (add if missing, skip if present)

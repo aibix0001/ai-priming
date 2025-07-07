@@ -269,19 +269,6 @@ ansible-playbook --check vyos-config.yml
 ansible-playbook --syntax-check vyos-config.yml
 ```
 
-## Integration with Other Commands
-
-**Required Reading**: Before applying VyOS-specific rules, the assistant must read:
-- `secrets.md` - for universal credential management principles
-- `testing.md` - for configuration testing philosophy
-- Generic CLAUDE.md rules for version control and change management
-
-**Related Commands**: This command also works with:
-- `ansible.md` - for playbook development and execution
-- `netbox.md` - for device inventory and documentation
-
-This command extends and implements the universal principles defined in the required files.
-
 ## Performance and Monitoring
 
 ### Configuration Performance
@@ -309,3 +296,6 @@ This command extends and implements the universal principles defined in the requ
 - Use secure defaults
 - Implement proper firewall rules
 - Regular security audits of configuration
+
+## ensure proper session initialization and memory
+- ensure `- @.claude/commands/vyos.md` is listed in `.claude-commands.memory` under section `## read these files upon initialization` (add if missing, skip if present)

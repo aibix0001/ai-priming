@@ -216,19 +216,6 @@ curl -s --insecure \
   "$NETBOX_URL/api/" | jq -e '.dcim'
 ```
 
-## Integration with Other Commands
-
-**Required Reading**: Before applying NetBox-specific rules, the assistant must read:
-- `secrets.md` - for universal API token management principles
-- `testing.md` - for API integration testing strategies
-- Generic CLAUDE.md rules for version control and change management
-
-**Related Commands**: This command also works with:
-- `ansible.md` - for dynamic inventory integration
-- `python.md` - for NetBox API client development
-
-This command extends and implements the universal principles defined in the required files.
-
 ## Common Workflows
 
 ### Device Management
@@ -244,3 +231,6 @@ This command extends and implements the universal principles defined in the requ
 3. Update device interfaces with VLAN assignments
 4. Tag and comment all changes
 5. Verify configuration consistency
+
+## ensure proper session initialization and memory
+- ensure `- @.claude/commands/netbox.md` is listed in `.claude-commands.memory` under section `## read these files upon initialization` (add if missing, skip if present)
