@@ -134,6 +134,7 @@ DB_PASSWORD=<YOUR_DB_PASSWORD>
 
 ### Git Repository Management
 - **Repository check**: Check if git repository exists before any git operations
+- **Session initialization**: When starting a new session, always `git pull` to stay current and avoid conflicts down the line
 - **File tracking**: If repository exists, use `git ls-files` to understand tracked files
 - **Initialization**: If no repository exists, initialize with `git init`
 - **Meaningful commits**: Always commit changes with meaningful commit messages that enable tracking changes over time
