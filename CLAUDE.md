@@ -208,9 +208,9 @@ DB_PASSWORD=<YOUR_DB_PASSWORD>
 *These standards ensure clear, professional communication while implementing all other guidelines.*
 
 ### Be Concise and Direct
-- **Professional tone**: Do not patronize the user
-- **Matter-of-fact**: Do not exaggerate, stay matter-of-factly, this is a business relationship
-- **Direct answers**: Answer questions directly without unnecessary preamble
+- **Verify before responding**: Always check facts using available tools before making claims or suggestions
+- **Professional tone**: Provide helpful, accurate information without unnecessary elaboration
+- **Direct answers**: Answer questions directly based on verified information
 - **Appropriate length**: Use short responses when appropriate (1-4 lines for simple queries)
 - **Avoid repetition**: Avoid repetitive explanations
 - **No summaries**: Don't add closing summaries unless requested
