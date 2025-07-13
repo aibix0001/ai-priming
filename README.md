@@ -29,10 +29,10 @@ This repository serves as the single source of truth for AI assistant configurat
 - Proper use of `git ls-files` for repository awareness
 
 ### ✅ Language-Specific Requirements
-- **Python**: Mandatory virtual environment usage (.venv)
-  - Automatic creation and activation
-  - Package isolation (no global installations)
-  - Requirements.txt maintenance
+- **Python**: Mandatory uv usage for all Python operations
+  - No virtual environments or package installations
+  - Ephemeral environments with uvx and uv run
+  - Modern dependency management with pyproject.toml
 - **TypeScript**: Strict type safety and modern tooling
   - Always use tsconfig.json with strict settings
   - ESLint and Prettier integration
@@ -147,7 +147,7 @@ This repository includes a comprehensive hooks system that provides:
 
 #### Supported Formatters
 To enable automatic code formatting, install the following tools:
-- **Python**: `pip install black` - Formats .py files
+- **Python**: `uvx black` - Formats .py files (no installation needed)
 - **JavaScript/TypeScript/JSON**: `npm install -g prettier` - Formats .js, .ts, .json files
 - **Shell Scripts**: Install `shfmt` - Formats .sh files
 

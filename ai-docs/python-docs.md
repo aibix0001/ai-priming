@@ -1,0 +1,16 @@
+# Read these documentation, understand and memorize it
+- https://docs.python.org/3.12/
+- https://docs.astral.sh/uv/
+- https://docs.astral.sh/uv/getting-started/installation/
+- https://docs.astral.sh/uv/guides/projects/
+- https://docs.astral.sh/uv/guides/tools/
+- https://docs.astral.sh/uv/guides/scripts/
+- https://docs.astral.sh/uv/guides/dependencies/
+- https://docs.astral.sh/uv/concepts/projects/
+- https://docs.astral.sh/uv/concepts/tools/
+- https://docs.astral.sh/uv/reference/cli/
+- https://packaging.python.org/en/latest/specifications/pyproject-toml/
+- https://peps.python.org/pep-0621/
+- https://docs.pytest.org/en/stable/
+- https://black.readthedocs.io/en/stable/
+- https://docs.astral.sh/ruff/

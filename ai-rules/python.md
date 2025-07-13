@@ -1,28 +1,53 @@
-# Python Development Command
+# Python Development Rule
 
-This command provides Python-specific rules and workflows for Claude Code.
+This rule provides Python-specific guidelines and workflows for Claude Code using uv for modern Python tooling.
+
+## Prerequisites
+
+- uv installed (https://docs.astral.sh/uv/getting-started/installation/)
+- Python interpreter available (uv will manage versions)
+- Target environment accessible
 
 ## Environment Management
 
-### Virtual Environment Rules
-- **Python venv**: always use python virtual environments
-- **Venv location**: create in project root as `.venv` unless another convention exists
-- **Venv detection**: check for existing venv in order: `.venv`, `venv`, `env`
-- **Venv activation**: always verify venv is activated before installing packages
-- **System packages**: **must not ever install packages outside venv**
-- **Requirements management**: update requirements.txt immediately after installing packages with specific versions
+### UV-First Rules
+- **No virtual environments**: **MUST NOT** use python venv, virtualenv, or conda
+- **No package installation**: **MUST NOT** install packages with pip or any package manager
+- **UV only**: **MUST** use `uv` and `uvx` for all Python operations
+- **Ephemeral environments**: **MUST** rely on uv's ephemeral environments for clean execution
+- **Current packages**: uv automatically provides latest package versions without local artifacts
 
-### Virtual Environment Commands
+### UV Commands
 ```bash
-# Create virtual environment
-python -m venv .venv
+# Run Python scripts with dependencies
+uvx --from package script_name
 
-# Activate virtual environment
-source .venv/bin/activate  # Linux/Mac
-.venv\Scripts\activate     # Windows
+# Run Python code with specific packages
+uv run --with requests --with pandas script.py
 
-# Verify activation
-which python  # Should show .venv path
+# Run one-off commands
+uvx ruff check .
+uvx black .
+uvx pytest
+
+# Execute Python with inline dependencies
+uv run --with 'requests>=2.25.0' python script.py
+```
+
+### Project Structure with UV
+```bash
+# Initialize project with uv
+uv init my-project
+cd my-project
+
+# Add dependencies to pyproject.toml
+uv add requests pandas
+
+# Run the project
+uv run python main.py
+
+# Run with additional dependencies
+uv run --with matplotlib python analysis.py
 ```
 
 ## Code Quality and Structure
@@ -63,39 +88,71 @@ which python  # Should show .venv path
 - **Python frameworks**: check for pytest/unittest in project, run if found
 - **No test framework**: inform user, suggest adding tests
 
-### Test Execution
-- Run existing tests after making changes
+### Test Execution with UV
+- Run existing tests after making changes using uvx
 - Create unit tests for new functions
 - Ensure all tests pass before considering work complete
 - Use the project's established testing framework
 
-### Test Commands
+### Test Commands with UV
 ```bash
-# Common test commands
-pytest                    # Run all tests
-pytest tests/            # Run tests in directory
-pytest -v               # Verbose output
-python -m unittest      # Run unittest tests
+# Run tests with uvx (no installation needed)
+uvx pytest                    # Run all tests
+uvx pytest tests/            # Run tests in directory
+uvx pytest -v               # Verbose output
+uvx pytest --cov=module     # Coverage report
+
+# Run unittest tests
+uv run python -m unittest discover
+uv run python -m unittest tests.test_module
+
+# Run tests with additional dependencies
+uv run --with pytest-cov --with pytest-mock pytest
 ```
 
-## Package Management
+## Package Management with UV
 
-### Requirements Management
-- Always update requirements.txt after installing packages
-- Pin specific versions in requirements.txt
-- Use `pip freeze > requirements.txt` to capture exact versions
-- Separate development dependencies if using requirements-dev.txt
+### Dependency Management
+- **pyproject.toml**: Use pyproject.toml for dependency specification
+- **No requirements.txt**: Avoid traditional requirements.txt files
+- **Version constraints**: Specify appropriate version constraints in pyproject.toml
+- **Development dependencies**: Use [tool.uv] sections for dev dependencies
 
-### Installation Best Practices
+### UV Project Configuration
+```toml
+# pyproject.toml
+[project]
+name = "my-project"
+version = "0.1.0"
+description = "Project description"
+dependencies = [
+    "requests>=2.25.0",
+    "pandas>=1.3.0",
+]
+
+[tool.uv]
+dev-dependencies = [
+    "pytest>=7.0.0",
+    "black>=22.0.0",
+    "ruff>=0.1.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+```
+
+### Running Code with Dependencies
 ```bash
-# Install packages
-pip install package_name
+# Add dependency and run
+uv add requests
+uv run python script.py
 
-# Install from requirements
-pip install -r requirements.txt
+# One-time dependency usage
+uv run --with requests python script.py
 
-# Update requirements after installation
-pip freeze > requirements.txt
+# Run with multiple dependencies
+uv run --with requests --with pandas --with matplotlib data_analysis.py
 ```
 
 ## Code Style and Formatting
@@ -104,13 +161,29 @@ pip freeze > requirements.txt
 - Match existing code style exactly
 - Use the same naming conventions as surrounding code
 - Follow PEP 8 guidelines unless project uses different style
-- Use existing formatters (black, autopep8) if configured
+- Use uv-managed formatters (black, ruff) for consistency
+
+### Formatting with UV
+```bash
+# Format code with black
+uvx black .
+
+# Lint with ruff
+uvx ruff check .
+uvx ruff check --fix .
+
+# Type checking with mypy
+uvx mypy .
+
+# All-in-one formatting and linting
+uvx black . && uvx ruff check --fix . && uvx mypy .
+```
 
 ### Import Organization
 - Follow PEP 8 import order: standard library, third-party, local
 - Use absolute imports when possible
 - Group imports logically
-- Remove unused imports
+- Remove unused imports with ruff
 
 ## Error Handling
 
@@ -134,11 +207,23 @@ except Exception as e:
 
 ## Secrets Management
 
-### Environment Variables
+### Environment Variables with UV
 - **Use python-dotenv**: Load environment variables from `.env` file
-- **Add to requirements**: Include `python-dotenv` in requirements.txt
+- **Add to dependencies**: Include python-dotenv in pyproject.toml dependencies
 - **Load at startup**: Call `load_dotenv()` at the beginning of scripts
 
+```python
+# Run with dotenv support
+uv run --with python-dotenv python script.py
+
+# pyproject.toml
+[project]
+dependencies = [
+    "python-dotenv>=1.0.0",
+]
+```
+
+### Configuration Loading
 ```python
 from dotenv import load_dotenv
 import os
@@ -159,40 +244,58 @@ class Config:
         self.debug = os.getenv('DEBUG', 'False').lower() == 'true'
 ```
 
-### Required Environment Variables
-```python
-import os
-from dotenv import load_dotenv
+## Development Workflow
 
-load_dotenv()
+### Project Initialization
+```bash
+# Create new project
+uv init my-project
+cd my-project
 
-# Check required environment variables
-REQUIRED_VARS = ['API_TOKEN', 'DB_PASSWORD', 'SECRET_KEY']
+# Add dependencies
+uv add requests pandas python-dotenv
 
-for var in REQUIRED_VARS:
-    if not os.getenv(var):
-        raise ValueError(f"Required environment variable {var} is not set")
+# Add development dependencies
+uv add --dev pytest black ruff mypy
+
+# Run the project
+uv run python main.py
 ```
 
-## Testing Framework
-
-### Test Detection and Execution
-- **Frameworks**: pytest (preferred), unittest, nose2, tox
-- **Detection**: Look for pytest.ini, tox.ini, setup.cfg, pyproject.toml
-- **Commands**: Run tests after changes, create unit tests for new functions
-
-### Test Commands
+### Common Development Tasks
 ```bash
-# pytest (preferred)
-pytest                    # Run all tests
-pytest tests/            # Run tests in directory
-pytest -v               # Verbose output
-pytest -x               # Stop on first failure
-pytest --cov=module     # Coverage report
+# Format and lint
+uvx black . && uvx ruff check --fix .
 
-# unittest
-python -m unittest discover
-python -m unittest tests.test_module
+# Type checking
+uvx mypy .
+
+# Run tests
+uvx pytest
+
+# Run with additional tools
+uvx --from rich python -c "from rich.console import Console; Console().print('Hello!', style='bold red')"
+
+# Execute specific tools
+uvx bandit -r .  # Security linting
+uvx safety check  # Vulnerability scanning
+```
+
+## Testing Framework with UV
+
+### Test Configuration
+```toml
+# pyproject.toml
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = ["-v", "--tb=short"]
+
+[tool.coverage.run]
+source = ["src"]
+omit = ["tests/*"]
 ```
 
 ### Test Structure
@@ -210,37 +313,45 @@ def test_my_function_edge_case():
         my_function(None)
 ```
 
-### Test Configuration
-```ini
-# pytest.ini
-[tool:pytest]
-testpaths = tests
-python_files = test_*.py
-python_classes = Test*
-python_functions = test_*
-addopts = -v --tb=short
+### Coverage and Mocking with UV
+```bash
+# Run tests with coverage
+uvx pytest --cov=src --cov-report=html
+
+# Run tests with specific dependencies
+uv run --with pytest-mock --with pytest-cov pytest
+
+# Performance testing
+uvx pytest-benchmark
 ```
 
-### Coverage and Mocking
-```python
-# Coverage
-pytest --cov=mymodule --cov-report=html
+## Production Considerations
 
-# Mocking with unittest.mock
-from unittest.mock import patch, Mock
+### Deployment with UV
+- **Docker integration**: Use uv in Docker for reproducible builds
+- **Lock files**: Commit uv.lock for reproducible deployments
+- **Build process**: Use `uv build` for distribution packages
+- **Security**: Regular security audits with `uvx safety check`
 
-@patch('requests.get')
-def test_api_call(mock_get):
-    mock_get.return_value.json.return_value = {'status': 'success'}
-    result = my_api_function()
-    assert result == {'status': 'success'}
+### Example Dockerfile
+```dockerfile
+FROM python:3.12-slim
+RUN pip install uv
+COPY . /app
+WORKDIR /app
+RUN uv sync --frozen
+CMD ["uv", "run", "python", "main.py"]
 ```
 
-## ensure proper session initialization and memory
+## Memory Integration
+
+After using this rule, Claude must:
+
 - **1.** check if `.claude-commands.memory` file exists - if not, create it with initial content:
-  ```
-  ## read these files upon initialization
-  
-  ```
+```
+## read these files upon initialization
+
+```
+
 - **2.** check if `- @ai-rules/python.md` is listed under section `## read these files upon initialization` in `.claude-commands.memory`
 - **3.** if not listed: add `- @ai-rules/python.md` to list under section `## read these files upon initialization` in `.claude-commands.memory`
