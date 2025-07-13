@@ -2,9 +2,30 @@
 
 A comprehensive framework for establishing consistent AI assistant behavior across all software development projects through universal rules and reusable commands.
 
+## Important Disclaimer
+
+**This repository serves as an example implementation** of a modular AI assistant priming framework. The specific rules and documentation are highly tailored to particular technologies and workflows including:
+
+- **NetBox** for network documentation and device management
+- **VyOS** for network device configuration
+- **Ansible** for automation workflows
+- **MCP (Model Context Protocol)** for Claude Code integrations
+- **Python with uv** for modern Python development
+- **TypeScript** for type-safe development
+
+**Before using this framework:**
+
+1. **Review all rules and documentation** in `ai-rules/` and `ai-docs/` directories
+2. **Adapt or replace technology-specific rules** to match your environment and stack
+3. **Customize the universal rules** in `CLAUDE.md` to fit your organization's standards
+4. **Modify or remove** rules that don't apply to your use case
+5. **Add new rules** for technologies and workflows specific to your projects
+
+This framework demonstrates the **modular approach and structure** for AI assistant priming, but the content should be tailored to your specific needs, technologies, and organizational requirements.
+
 ## Purpose
 
-This repository serves as the single source of truth for AI assistant configuration, ensuring consistent, secure, and efficient development practices across all project types. It provides a hierarchical rule system where universal principles are extended by language-specific and project-specific requirements.
+This repository demonstrates how to create a single source of truth for AI assistant configuration, ensuring consistent, secure, and efficient development practices across all project types. It provides a hierarchical rule system where universal principles are extended by language-specific and project-specific requirements.
 
 ## Implemented Features
 
@@ -108,6 +129,8 @@ ai-priming/
 
 ### Setting Up a New Project
 
+**⚠️ Important: Review and customize the rules before use!** This example contains technology-specific configurations that may not apply to your project.
+
 To use this AI priming framework in your project:
 
 ```bash
@@ -116,13 +139,16 @@ git clone https://github.com/aibix0001/ai-priming.git <your project folder>/.cla
 
 This will create a `.claude` directory inside your project folder containing all the AI assistant configuration and rules. **This becomes the `.claude` folder for your new project**.
 
-After cloning, you can:
+After cloning, **customize the framework**:
 
 1. Navigate to your project folder: `cd <your project folder>`
-2. Start Claude Code: `claude`
-3. Claude will automatically discover and use the configuration from the `.claude` directory
-4. Extend with project-specific rules by creating `CLAUDE.local.md` in your project root
-5. Add command-specific workflows as needed
+2. **Review and edit** `.claude/ai-rules/` files to match your technology stack
+3. **Update or remove** technology-specific rules (NetBox, VyOS, Ansible, etc.)
+4. **Customize** `.claude/CLAUDE.md` for your organization's standards
+5. Start Claude Code: `claude`
+6. Claude will automatically discover and use the configuration from the `.claude` directory
+7. Extend with project-specific rules by creating `CLAUDE.local.md` in your project root
+8. Add additional rule templates as needed
 
 The `.claude` directory provides the foundation for consistent AI assistant behavior across your entire project development lifecycle.
 
