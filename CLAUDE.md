@@ -308,7 +308,7 @@ DB_PASSWORD=<YOUR_DB_PASSWORD>
 1. **Universal rules**: These universal rules always apply
 2. **Language-specific**: Language-specific requirements apply when relevant
 3. **Project-specific**: Project-specific CLAUDE.md files add additional rules
-4. **Command workflows**: Command files in `.claude/commands/` provide specialized workflows
+4. **Rule templates**: Rule files in `ai-rules/` provide specialized workflows
 5. **User priority**: User instructions during the session take precedence
 
 ### Reading Project Context
@@ -318,7 +318,7 @@ DB_PASSWORD=<YOUR_DB_PASSWORD>
 - **Code examination**: Examine existing code to understand conventions
 
 ### Command Usage
-- **Workflow files**: Commands in `.claude/commands/` are reusable workflows
+- **Workflow files**: Rules in `ai-rules/` are reusable workflows
 - **Rule compliance**: Commands should follow these universal rules
 - **Documentation**: Document command assumptions and requirements
 

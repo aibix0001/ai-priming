@@ -242,5 +242,5 @@ def test_api_call(mock_get):
   ## read these files upon initialization
   
   ```
-- **2.** check if `- @.claude/commands/python.md` is listed under section `## read these files upon initialization` in `.claude-commands.memory`
-- **3.** if not listed: add `- @.claude/commands/python.md` to list under section `## read these files upon initialization` in `.claude-commands.memory`
+- **2.** check if `- @ai-rules/python.md` is listed under section `## read these files upon initialization` in `.claude-commands.memory`
+- **3.** if not listed: add `- @ai-rules/python.md` to list under section `## read these files upon initialization` in `.claude-commands.memory`

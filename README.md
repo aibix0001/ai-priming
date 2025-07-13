@@ -35,7 +35,7 @@ This repository serves as the single source of truth for AI assistant configurat
   - Requirements.txt maintenance
 
 ### ✅ Command Infrastructure
-- `commands/` directory with specialized workflows:
+- `ai-rules/` directory with specialized workflows:
   - Ansible automation and playbook management
   - NetBox network documentation and management
   - Python development best practices
@@ -70,12 +70,19 @@ ai-priming/
 │   ├── monitor-files.sh     # File change monitoring
 │   ├── format-code.sh       # Auto-formatting
 │   └── refresh-rules.sh     # Rule refresh system
-├── commands/                 # Reusable command templates
-│   ├── README.md            # Command documentation and template
+├── ai-rules/                 # Modular rule templates
+│   ├── README.md            # Rule documentation and template
 │   ├── ansible.md           # Ansible automation workflows
 │   ├── netbox.md            # NetBox management commands
 │   ├── python.md            # Python development workflows
 │   └── vyos.md              # VyOS configuration management
+├── ai-docs/                  # On-demand documentation for assistant
+│   ├── ansible-docs.md      # Ansible reference documentation
+│   ├── mcp.md               # MCP protocol documentation
+│   ├── netbox-docs.md       # NetBox API and usage docs
+│   ├── python-docs.md       # Python best practices and references
+│   └── vyos-docs.md         # VyOS configuration references
+├── ai-plans/                 # Collaborative development plans
 ├── setup.sh                 # Setup script for symlink creation
 ├── .gitignore               # Excludes local settings and credentials
 └── README.md                # This file
@@ -86,7 +93,7 @@ ai-priming/
 1. **Universal Rules** (root CLAUDE.md) - Always apply
 2. **Language-Specific Rules** - Apply when using specific languages
 3. **Project-Specific Rules** - Extend universal rules for individual projects
-4. **Command Rules** - Specific workflows in `.claude/commands/`
+4. **Rule Templates** - Modular workflows in `ai-rules/`
 5. **User Instructions** - Session-specific overrides
 
 ## Getting Started
@@ -117,7 +124,7 @@ This repository includes a comprehensive hooks system that provides:
 
 ### Automated Logging
 - **Command tracking**: All bash commands are logged with timestamps
-- **File monitoring**: Changes to important files (CLAUDE.md, commands/, etc.) are tracked
+- **File monitoring**: Changes to important files (CLAUDE.md, ai-rules/, etc.) are tracked
 - **Git validation**: Ensures commit messages follow conventional format standards
 
 ### Safety Features
@@ -139,7 +146,7 @@ To enable automatic code formatting, install the following tools:
 The formatting hook will silently skip files if the corresponding formatter is not available.
 
 ### Rule Refresh System
-- **Command memory**: Tracks which commands have been used in the project
+- **Rule memory**: Tracks which rules have been used in the project
 - **Dual refresh strategy**: Session start refresh (immediate) + periodic refresh (15-minute cooldown)
 - **Context awareness**: Ensures assistant stays current with project-specific rules
 - **Token optimization**: Time-based cooldown prevents context pollution from frequent refreshes
@@ -154,15 +161,15 @@ All hooks are designed to be non-blocking and provide helpful feedback without i
 
 ## Planned Features
 
-- [ ] Command templates for common project types (Node.js, React, Next.js, Rust, etc.)
+- [ ] Rule templates for common project types (Node.js, React, Next.js, Rust, etc.)
 - [ ] Example projects demonstrating rule extensions
 - [ ] Additional language-specific requirements
-- [ ] Security audit commands
+- [ ] Security audit rule templates
 - [ ] Performance optimization workflows
 
 ## Contributing
 
-New commands and rule improvements should follow the established patterns and be thoroughly tested across different scenarios.
+New rules and workflow improvements should follow the established patterns and be thoroughly tested across different scenarios.
 
 ## License
 

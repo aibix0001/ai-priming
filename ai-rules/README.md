@@ -1,10 +1,10 @@
-# Claude Commands
+# Claude Rules
 
-This directory contains specialized workflow commands for Claude Code to help with infrastructure management, development workflows, and operational tasks.
+This directory contains modular rule templates for Claude Code to help with infrastructure management, development workflows, and operational tasks. These rules can be called from command line or via init-commands.
 
-## How Commands Work
+## How Rules Work
 
-Commands are markdown files that provide structured instructions and best practices for Claude to follow when working with specific technologies or workflows. These commands contain:
+Rules are markdown files that provide structured instructions and best practices for Claude to follow when working with specific technologies or workflows. These modular rules contain:
 
 1. Technology-specific guidelines and conventions
 2. Security best practices and requirements
@@ -13,16 +13,16 @@ Commands are markdown files that provide structured instructions and best practi
 
 ## Command Structure
 
-Each command file should follow this structure:
+Each rule file should follow this structure:
 
 ```markdown
-# Command: [command-name]
+# Rule: [rule-name]
 
 ## Description
-Brief description of what this command does
+Brief description of what this rule provides
 
 ## Prerequisites
-- List of requirements before running this command
+- List of requirements before applying this rule
 - E.g., "Empty directory" or "Node.js installed"
 
 ## Steps
@@ -41,7 +41,7 @@ Brief description of what this command does
 Instructions or commands to run after setup
 ```
 
-## Available Commands
+## Available Rules
 
 ### Infrastructure & Automation
 - `ansible.md` - Ansible automation workflows and playbook management
@@ -53,41 +53,41 @@ Instructions or commands to run after setup
 
 *Note: Testing framework guidelines and secrets management best practices are now incorporated into the main CLAUDE.md file under "Testing Framework and Strategy" and "Secrets and Credentials Management" sections respectively.*
 
-## Creating New Commands
+## Creating New Rules
 
-When creating a new command:
+When creating a new rule:
 
-1. Follow the naming convention: `action-target.md`
-2. Make commands idempotent (safe to run multiple times)
+1. Follow the naming convention: `technology.md` or `workflow.md`
+2. Make rules idempotent (safe to apply multiple times)
 3. Include error handling and rollback instructions
-4. Test the command in different scenarios
+4. Test the rule in different scenarios
 5. Document all assumptions and side effects
 
-## Command Inheritance
+## Rule Inheritance
 
-Commands can reference other commands or the base CLAUDE.md:
+Rules can reference other rules or the base CLAUDE.md:
 
 ```markdown
 ## Extends
 - Base: /CLAUDE.md
-- Command: /add-linting.md
+- Rule: /add-linting.md
 ```
 
-This allows commands to build upon existing configurations without duplication.
+This allows rules to build upon existing configurations without duplication.
 
 ## Best Practices
 
-1. **Keep commands focused** - One command should do one thing well
-2. **Make them composable** - Commands should work together
+1. **Keep rules focused** - One rule should cover one technology/workflow well
+2. **Make them composable** - Rules should work together
 3. **Validate inputs** - Check prerequisites before making changes
 4. **Provide feedback** - Show progress and explain what's happening
 5. **Handle errors gracefully** - Anticipate common failure modes
 
-## Testing Commands
+## Testing Rules
 
-Before adding a new command:
+Before adding a new rule:
 
 1. Test in an empty directory
 2. Test in a partially configured project
-3. Test running the command multiple times
+3. Test applying the rule multiple times
 4. Document edge cases and limitations

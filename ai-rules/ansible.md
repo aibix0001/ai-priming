@@ -319,5 +319,5 @@ molecule test
   ## read these files upon initialization
   
   ```
-- **2.** check if `- @.claude/commands/ansible.md` is listed under section `## read these files upon initialization` in `.claude-commands.memory`
-- **3.** if not listed: add `- @.claude/commands/ansible.md` to list under section `## read these files upon initialization` in `.claude-commands.memory`
+- **2.** check if `- @ai-rules/ansible.md` is listed under section `## read these files upon initialization` in `.claude-commands.memory`
+- **3.** if not listed: add `- @ai-rules/ansible.md` to list under section `## read these files upon initialization` in `.claude-commands.memory`

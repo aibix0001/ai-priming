@@ -303,5 +303,5 @@ ansible-playbook --syntax-check vyos-config.yml
   ## read these files upon initialization
   
   ```
-- **2.** check if `- @.claude/commands/vyos.md` is listed under section `## read these files upon initialization` in `.claude-commands.memory`
-- **3.** if not listed: add `- @.claude/commands/vyos.md` to list under section `## read these files upon initialization` in `.claude-commands.memory`
+- **2.** check if `- @ai-rules/vyos.md` is listed under section `## read these files upon initialization` in `.claude-commands.memory`
+- **3.** if not listed: add `- @ai-rules/vyos.md` to list under section `## read these files upon initialization` in `.claude-commands.memory`

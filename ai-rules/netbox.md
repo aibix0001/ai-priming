@@ -238,5 +238,5 @@ curl -s --insecure \
   ## read these files upon initialization
   
   ```
-- **2.** check if `- @.claude/commands/netbox.md` is listed under section `## read these files upon initialization` in `.claude-commands.memory`
-- **3.** if not listed: add `- @.claude/commands/netbox.md` to list under section `## read these files upon initialization` in `.claude-commands.memory`
+- **2.** check if `- @ai-rules/netbox.md` is listed under section `## read these files upon initialization` in `.claude-commands.memory`
+- **3.** if not listed: add `- @ai-rules/netbox.md` to list under section `## read these files upon initialization` in `.claude-commands.memory`
