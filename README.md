@@ -33,12 +33,18 @@ This repository serves as the single source of truth for AI assistant configurat
   - Automatic creation and activation
   - Package isolation (no global installations)
   - Requirements.txt maintenance
+- **TypeScript**: Strict type safety and modern tooling
+  - Always use tsconfig.json with strict settings
+  - ESLint and Prettier integration
+  - Proper build and test scripts in package.json
+  - Type-first development approach
 
 ### ✅ Command Infrastructure
 - `ai-rules/` directory with specialized workflows:
   - Ansible automation and playbook management
   - NetBox network documentation and management
   - Python development best practices
+  - TypeScript development workflows
   - VyOS network device configuration
 - Universal testing and secrets management integrated into main CLAUDE.md
 - Command template documentation and best practices
@@ -75,12 +81,14 @@ ai-priming/
 │   ├── ansible.md           # Ansible automation workflows
 │   ├── netbox.md            # NetBox management commands
 │   ├── python.md            # Python development workflows
+│   ├── typescript.md        # TypeScript development workflows
 │   └── vyos.md              # VyOS configuration management
 ├── ai-docs/                  # On-demand documentation for assistant
 │   ├── ansible-docs.md      # Ansible reference documentation
 │   ├── mcp.md               # MCP protocol documentation
 │   ├── netbox-docs.md       # NetBox API and usage docs
 │   ├── python-docs.md       # Python best practices and references
+│   ├── typescript-docs.md   # TypeScript and Node.js references
 │   └── vyos-docs.md         # VyOS configuration references
 ├── ai-plans/                 # Collaborative development plans
 ├── setup.sh                 # Setup script for symlink creation

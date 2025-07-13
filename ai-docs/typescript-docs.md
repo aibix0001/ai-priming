@@ -1,0 +1,16 @@
+# Read these documentation, understand and memorize it
+- https://www.typescriptlang.org/docs/
+- https://www.typescriptlang.org/docs/handbook/typescript-tooling-in-5-minutes.html
+- https://www.typescriptlang.org/docs/handbook/2/basic-types.html
+- https://www.typescriptlang.org/docs/handbook/2/everyday-types.html
+- https://www.typescriptlang.org/docs/handbook/2/functions.html
+- https://www.typescriptlang.org/docs/handbook/2/objects.html
+- https://www.typescriptlang.org/docs/handbook/2/classes.html
+- https://www.typescriptlang.org/docs/handbook/2/modules.html
+- https://www.typescriptlang.org/docs/handbook/declaration-files/introduction.html
+- https://nodejs.org/en/docs/guides/nodejs-docker-webapp/
+- https://docs.npmjs.com/cli/v10/commands/npm-init
+- https://docs.npmjs.com/cli/v10/commands/npm-install
+- https://jestjs.io/docs/getting-started
+- https://eslint.org/docs/latest/user-guide/getting-started
+- https://prettier.io/docs/en/index.html

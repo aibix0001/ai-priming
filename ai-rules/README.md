@@ -50,6 +50,7 @@ Instructions or commands to run after setup
 
 ### Development & Testing
 - `python.md` - Python development workflows and best practices
+- `typescript.md` - TypeScript development workflows and best practices
 
 *Note: Testing framework guidelines and secrets management best practices are now incorporated into the main CLAUDE.md file under "Testing Framework and Strategy" and "Secrets and Credentials Management" sections respectively.*
 
