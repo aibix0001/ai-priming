@@ -125,42 +125,7 @@ DB_PASSWORD=<YOUR_DB_PASSWORD>
 *These workflow rules implement the core principles in day-to-day development practices.*
 
 ### Version Control
-- **Commit messages**: Write clear, concise commit messages explaining WHY not just WHAT
-- **Focused commits**: Keep commits focused on a single logical change
-- **Force push**: Never force push unless explicitly instructed
-- **Review process**: Review changes before committing
-- **Format consistency**: Follow the project's existing commit message format and style
-- **Conventional commits**: For new repositories or projects without established patterns, use conventional commit format (feat:, fix:, docs:, etc.)
-
-### Git Repository Management
-- **Repository check**: Check if git repository exists before any git operations
-- **Session initialization**: When starting a new session, always `git pull` to stay current and avoid conflicts down the line
-- **File tracking**: If repository exists, use `git ls-files` to understand tracked files
-- **Initialization**: If no repository exists, initialize with `git init`
-- **Meaningful commits**: Always commit changes with meaningful commit messages that enable tracking changes over time
-- **Descriptive history**: Commit messages must be descriptive enough that reading the log provides a clear project history
-- **Gitignore maintenance**: ALWAYS create and maintain a .gitignore file to exclude unnecessary files from version control
-
-### Branch Management
-- **Branch creation default**: Only create branches when explicitly requested by user
-- **Branch suggestion trigger**: Claude must suggest creating a new branch when:
-  - Task shifts to a different system/context
-  - Current changes would conflict with or diverge from the existing branch's purpose
-  - User requests a new feature while in the middle of another feature
-  - Work scope significantly expands beyond original branch intent
-- **Suggestion format**: "This seems like a different feature/context. Should I create a new branch for this work?"
-- **Stay on branch**: Continue working on current branch unless user approves branch switch
-- **One feature principle**: Each branch must represent one cohesive feature or fix
-- **Merge policy**: Only merge when user explicitly approves
-- **Branch retention**: After merging, **must not** delete feature branch - keep for reference
-- **Naming convention**: Name branches descriptively using conventional prefixes (feature/, fix/, chore/, etc.)
-
-### .gitignore Management
-- **File creation**: Create .gitignore file in the root of every project
-- **Language patterns**: Include common patterns for the project's language/framework
-- **Standard exclusions**: Include build artifacts, logs, temporary files, and IDE-specific files
-- **Evolution**: Keep .gitignore updated as the project evolves
-- **Validation**: Review and test .gitignore patterns regularly
+- **Git workflow**: Follow comprehensive Git workflow guidelines from @ai-rules/git.md
 
 ### Environment Configuration
 - **Follow guidelines**: Follow the comprehensive "Secrets and Credentials Management" section above for all environment variable handling
@@ -313,7 +278,7 @@ DB_PASSWORD=<YOUR_DB_PASSWORD>
 
 ### Reading Project Context
 - **Project CLAUDE.md**: Check for existing CLAUDE.md in the project
-- **AI instructions**: Look for .cursorrules or .github/copilot-instructions.md
+- **AI instructions**: Look for .cursorrules or platform-specific AI instruction files
 - **Project guidelines**: Review README.md for project-specific guidelines
 - **Code examination**: Examine existing code to understand conventions
 
