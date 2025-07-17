@@ -175,11 +175,11 @@ After using this rule, Claude must:
 ```
 
 ### Integration with CLAUDE.md
-The git-rules.md must transfer generic Git-related content already in CLAUDE.md to the new @ai-rules/git.md:
-- Branch management rules (lines 135-155 in CLAUDE.md)
-- Version control standards (lines 145-155 in CLAUDE.md)
-- Commit message guidelines (lines 145-155 in CLAUDE.md)
-- **CLAUDE.md maintenance** after extracting **generic** git-related content from CLAUDE.md transfer platform-specific git-rules to a tmp/platform-git.txt and remove all git-related content from CLAUDE.md 
+The git-rules.md builds upon the universal principles in CLAUDE.md without needing explicit extends:
+- CLAUDE.md provides universal base principles (automatically loaded on startup)
+- git-rules.md provides specific Git workflow implementations
+- No explicit extends needed - all rules naturally inherit from CLAUDE.md
+- Focus on Git-specific implementations of universal principles 
 
 ## Blueprint Characteristics
 
