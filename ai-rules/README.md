@@ -52,6 +52,11 @@ Instructions or commands to run after setup
 - `python-rules.md` - Python development workflows and best practices
 - `typescript-rules.md` - TypeScript development workflows and best practices
 
+### Version Control
+- `git-rules.md` - Core Git workflow guidelines and best practices
+- `git-advanced-rules.md` - Advanced Git features (worktrees, subagent coordination)
+- `gitlab-rules.md` - GitLab platform integration via glab CLI
+
 *Note: Testing framework guidelines and secrets management best practices are now incorporated into the main CLAUDE.md file under "Testing Framework and Strategy" and "Secrets and Credentials Management" sections respectively.*
 
 ## Creating New Rules
@@ -71,7 +76,7 @@ Rules can reference other rules or the base CLAUDE.md:
 ```markdown
 ## Extends
 - Base: /CLAUDE.md
-- Rule: /ai-rules/add-linting-rules.md
+- Rule: /ai-rules/python-rules.md
 ```
 
 This allows rules to build upon existing configurations without duplication.
@@ -92,3 +97,55 @@ Before adding a new rule:
 2. Test in a partially configured project
 3. Test applying the rule multiple times
 4. Document edge cases and limitations
+
+## Path Reference Convention
+
+All rule references should use absolute paths from the project root:
+- ✅ Correct: `/ai-rules/python-rules.md`
+- ❌ Incorrect: `@ai-rules/python-rules.md` or `python-rules.md`
+
+This ensures consistency across all rules and prevents path resolution issues.
+
+## When to Use Rule Inheritance
+
+Use the `## Extends` section when:
+- Your rule builds upon another rule's functionality
+- You need prerequisites from another rule
+- You want to avoid duplicating common patterns
+
+Example scenarios:
+- `gitlab-rules.md` extends `git-rules.md` (GitLab requires Git)
+- `git-advanced-rules.md` extends `git-rules.md` (advanced features need basics)
+- All rules extend `/CLAUDE.md` (universal principles apply)
+
+## How Rules Interact with CLAUDE.md
+
+CLAUDE.md provides universal principles that all rules follow:
+- **Core Principles**: Code quality, security, minimal changes, testing, conventions
+- **Common Sections**: Testing strategy, secrets management, error handling
+
+Rules should:
+- Reference CLAUDE.md sections instead of duplicating content
+- Add only technology-specific implementations
+- Follow the same structure and naming conventions
+
+## Common Rule Combinations
+
+Frequently used together:
+- **Web Development**: `typescript-rules.md` + `git-rules.md`
+- **Infrastructure**: `ansible-rules.md` + `vyos-rules.md` + `netbox-rules.md`
+- **Python Projects**: `python-rules.md` + `git-rules.md`
+- **GitLab Workflow**: `git-rules.md` + `gitlab-rules.md`
+
+## Troubleshooting Rule Conflicts
+
+If rules seem to conflict:
+1. Check the `## Extends` hierarchy
+2. More specific rules override general ones
+3. User instructions override all rules
+4. When in doubt, ask for clarification
+
+Common issues:
+- **Path conflicts**: Ensure consistent path references
+- **Duplicate instructions**: Check if content should reference CLAUDE.md
+- **Missing dependencies**: Verify all extended rules exist

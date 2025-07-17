@@ -11,7 +11,6 @@ VyOS-specific rules and workflows for Claude Code, covering network device confi
 
 ## Extends
 - Base: /CLAUDE.md
-- Rule: /ai-rules/ansible-rules.md
 
 ## Steps
 
@@ -291,18 +290,17 @@ For complex setups (VPNs, BGP, OSPF), always:
 
 ## Secrets Management
 
-### Device Authentication
+Refer to CLAUDE.md "Secrets and Credentials Management" section for general principles.
+
+### VyOS-Specific Requirements
 ```bash
-# Required environment variables
+# Required environment variables in .env
 VYOS_USERNAME=<YOUR_VYOS_USERNAME>
 VYOS_PASSWORD=<YOUR_VYOS_PASSWORD>
 ```
 
-### Credential Handling
-- Store device credentials in `.env` file following `secrets.md` guidelines
-- Use environment variable lookup in Ansible playbooks
-- Never hardcode passwords in playbooks or inventory files
-- Implement credential rotation procedures
+- Use Ansible's `lookup('env', 'VYOS_USERNAME')` for credentials
+- Configure in group_vars or inventory with environment lookups
 
 ## Testing and Validation
 
@@ -362,5 +360,5 @@ After using this rule, Claude must:
 
 ```
 
-- **2.** Check if `- @ai-rules/vyos-rules.md` is listed under section `## read these files upon initialization` in `.claude-commands.memory`
-- **3.** If not listed: add `- @ai-rules/vyos-rules.md` to list under section `## read these files upon initialization` in `.claude-commands.memory`
+- **2.** Check if `- /ai-rules/vyos-rules.md` is listed under section `## read these files upon initialization` in `.claude-commands.memory`
+- **3.** If not listed: add `- /ai-rules/vyos-rules.md` to list under section `## read these files upon initialization` in `.claude-commands.memory`

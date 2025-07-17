@@ -156,11 +156,12 @@ npx eslint --init
 
 ## Testing Strategy
 
-### Testing Framework Setup
-- **Testing framework**: use Jest with ts-jest for TypeScript support
-- **Test files**: place tests alongside source files with `.test.ts` or `.spec.ts` extension
-- **Type testing**: test both runtime behavior and type correctness
-- **Mocking**: use Jest mocks for external dependencies
+Refer to CLAUDE.md "Testing Framework and Strategy" section for general testing principles.
+
+### TypeScript-Specific Testing
+- **Framework**: Jest with ts-jest for TypeScript support
+- **File naming**: Use `.test.ts` or `.spec.ts` extensions
+- **Type testing**: Test both runtime behavior and type correctness
 
 ### Test Configuration
 ```javascript
@@ -261,5 +262,5 @@ After using this rule, Claude must:
 
 ```
 
-- **2.** Check if `- @ai-rules/typescript-rules.md` is listed under section `## read these files upon initialization` in `.claude-commands.memory`
-- **3.** If not listed: add `- @ai-rules/typescript-rules.md` to list under section `## read these files upon initialization` in `.claude-commands.memory`
+- **2.** Check if `- /ai-rules/typescript-rules.md` is listed under section `## read these files upon initialization` in `.claude-commands.memory`
+- **3.** If not listed: add `- /ai-rules/typescript-rules.md` to list under section `## read these files upon initialization` in `.claude-commands.memory`

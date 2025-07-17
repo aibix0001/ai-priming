@@ -233,17 +233,17 @@ def handle_netbox_error(response):
 
 ## Secrets Management
 
-### API Token Configuration
+Refer to CLAUDE.md "Secrets and Credentials Management" section for general principles.
+
+### NetBox-Specific Requirements
 ```bash
-# Required environment variables
+# Required environment variables in .env
 NETBOX_URL=https://netbox.example.com
 NETBOX_API_TOKEN=<YOUR_NETBOX_API_TOKEN>
 ```
 
-### API Authentication
-- Store API token in `.env` file following `secrets.md` guidelines
-- Use `--insecure` flag for self-signed certificates
-- Never hardcode credentials in scripts or configuration files
+- Use `--insecure` flag for self-signed certificates in curl commands
+- Access via shell: `$NETBOX_API_TOKEN` and `$NETBOX_URL`
 
 ## Testing and Validation
 
@@ -287,5 +287,5 @@ After using this rule, Claude must:
 
 ```
 
-- **2.** Check if `- @ai-rules/netbox-rules.md` is listed under section `## read these files upon initialization` in `.claude-commands.memory`
-- **3.** If not listed: add `- @ai-rules/netbox-rules.md` to list under section `## read these files upon initialization` in `.claude-commands.memory`
+- **2.** Check if `- /ai-rules/netbox-rules.md` is listed under section `## read these files upon initialization` in `.claude-commands.memory`
+- **3.** If not listed: add `- /ai-rules/netbox-rules.md` to list under section `## read these files upon initialization` in `.claude-commands.memory`

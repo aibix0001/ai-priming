@@ -307,35 +307,21 @@ ansible-playbook -i inventory playbook.yml
 
 ## Secrets Management
 
-### Environment Variables
-- **Vault password**: Use `ANSIBLE_VAULT_PASSWORD_FILE` environment variable
-- **API credentials**: Use `lookup('env', 'VARIABLE_NAME')` in playbooks
-- **Inventory credentials**: Never hardcode credentials in inventory files
+Refer to CLAUDE.md "Secrets and Credentials Management" section for general principles.
+
+### Ansible-Specific Implementation
+- **Environment lookups**: Use `lookup('env', 'VARIABLE_NAME')` in playbooks
+- **Ansible Vault**: For encrypting sensitive files
+- **Vault password**: Store in `ANSIBLE_VAULT_PASSWORD_FILE` environment variable
 
 ```yaml
-# In playbook
-- name: Connect to API
-  uri:
-    url: "{{ lookup('env', 'API_BASE_URL') }}/endpoint"
-    headers:
-      Authorization: "Bearer {{ lookup('env', 'API_TOKEN') }}"
-```
-
-### Ansible Vault
-- **Vault usage**: Use Ansible Vault for sensitive data
-- **Password management**: Store vault password in environment variable
-- **File encryption**: Encrypt sensitive variable files
-
-```bash
-# Vault configuration
-ANSIBLE_VAULT_PASSWORD=<YOUR_VAULT_PASSWORD>
-ANSIBLE_VAULT_PASSWORD_FILE=.vault_pass
-
-# Encrypt sensitive vars
+# Example usage in playbook
+vars:
+  api_token: "{{ lookup('env', 'API_TOKEN') }}"
+  
+# Vault commands
 ansible-vault encrypt group_vars/all/vault.yml
-
-# Run playbook with vault
-ansible-playbook -i inventory playbook.yml --ask-vault-pass
+ansible-playbook playbook.yml --ask-vault-pass
 ```
 
 ## Testing and Validation
@@ -377,5 +363,5 @@ After using this rule, Claude must:
 
 ```
 
-- **2.** Check if `- @ai-rules/ansible-rules.md` is listed under section `## read these files upon initialization` in `.claude-commands.memory`
-- **3.** If not listed: add `- @ai-rules/ansible-rules.md` to list under section `## read these files upon initialization` in `.claude-commands.memory`
+- **2.** Check if `- /ai-rules/ansible-rules.md` is listed under section `## read these files upon initialization` in `.claude-commands.memory`
+- **3.** If not listed: add `- /ai-rules/ansible-rules.md` to list under section `## read these files upon initialization` in `.claude-commands.memory`

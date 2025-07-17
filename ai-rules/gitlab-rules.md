@@ -4,7 +4,7 @@
 Remote GitLab platform interaction guidelines for Claude Code, covering glab CLI usage for issue management, labeling, pipeline monitoring, and GitLab collaboration via the remote platform.
 
 ## Extends
-- Base: @ai-rules/git.md
+- Base: /ai-rules/git-rules.md
 
 ## Prerequisites
 - Git installed (version 2.20 or higher recommended)
@@ -87,28 +87,21 @@ Remote GitLab platform interaction guidelines for Claude Code, covering glab CLI
 
 ## Configuration
 
-### Remote GitLab Configuration
-- **GitLab labels**: Created via `glab label create` commands
-- **Issue templates**: Configured via GitLab project settings
-- **Merge request templates**: Configured via GitLab project settings
-- **Branch protection rules**: Configured via GitLab project settings
-- **CI/CD pipelines**: Configured via `.gitlab-ci.yml` (file operations handled by git.md)
+### Files Created
+- None (GitLab is a remote platform, configuration is done via glab CLI)
 
-### Local Files Modified
-- `.claude-commands.memory` - Add gitlab.md to initialization list
+### Files Modified
+- `.claude-commands.memory` - Add gitlab-rules.md to initialization list
 
-### Labels Required
-- 'claude-work-on-issue' (user-applied, blue #0052CC)
-- 'claude-working-on-issue' (red #FF0000)
-- 'claude-finished-issue' (orange #FFA500)
-- 'claude-awaiting-confirmation' (purple #800080)
-
-### GitLab CLI Configuration
-- **Authentication**: Ensure `glab auth login` is configured
-- **Project access**: Verify access to GitLab project
-- **Issue permissions**: Confirm ability to create and modify issues
-- **MR permissions**: Verify merge request creation permissions
-- **Pipeline access**: Ensure CI/CD pipeline visibility
+### GitLab Platform Configuration
+The following are configured on the GitLab platform via glab CLI:
+- **Labels**: Created via `glab label create` commands
+  - 'claude-work-on-issue' (user-applied, blue #0052CC)
+  - 'claude-working-on-issue' (red #FF0000)
+  - 'claude-finished-issue' (orange #FFA500)
+  - 'claude-awaiting-confirmation' (purple #800080)
+- **Authentication**: Configured via `glab auth login`
+- **Project access**: Verified via glab CLI
 
 ## Post-Setup
 
@@ -137,4 +130,4 @@ After applying GitLab rules:
 
 ## Memory Integration
 
-After using this rule, Claude must add `- @ai-rules/gitlab.md` to the memory integration list following the same process defined in git.md base rule.
+After using this rule, Claude must add `- /ai-rules/gitlab-rules.md` to the memory integration list following the same process defined in git-rules.md base rule.

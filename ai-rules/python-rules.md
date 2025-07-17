@@ -137,16 +137,12 @@ uv run --with matplotlib python analysis.py
 
 ## Testing Requirements
 
-### Test Detection
-- **Detection**: look for test/, tests/, *_test.py, test_*.py directories and files
-- **Python frameworks**: check for pytest/unittest in project, run if found
-- **No test framework**: inform user, suggest adding tests
+Refer to CLAUDE.md "Testing Framework and Strategy" section for general testing principles.
 
-### Test Execution with UV
-- Run existing tests after making changes using uvx
-- Create unit tests for new functions
-- Ensure all tests pass before considering work complete
-- Use the project's established testing framework
+### Python-Specific Testing with UV
+- **Framework detection**: Check for pytest/unittest in pyproject.toml
+- **Test execution**: Use `uvx pytest` for running tests without installation
+- **Coverage**: Use `uvx pytest --cov` for coverage reports
 
 ### Test Commands with UV
 ```bash
@@ -261,41 +257,19 @@ except Exception as e:
 
 ## Secrets Management
 
-### Environment Variables with UV
-- **Use python-dotenv**: Load environment variables from `.env` file
-- **Add to dependencies**: Include python-dotenv in pyproject.toml dependencies
-- **Load at startup**: Call `load_dotenv()` at the beginning of scripts
+Refer to CLAUDE.md "Secrets and Credentials Management" section for general principles.
 
-```python
-# Run with dotenv support
-uv run --with python-dotenv python script.py
+### Python-Specific Implementation
+- **Use python-dotenv**: Include in dependencies and use `load_dotenv()`
+- **UV execution**: `uv run --with python-dotenv python script.py`
+- **Access pattern**: Use `os.getenv()` for environment variables
 
-# pyproject.toml
-[project]
-dependencies = [
-    "python-dotenv>=1.0.0",
-]
-```
-
-### Configuration Loading
 ```python
 from dotenv import load_dotenv
 import os
 
 load_dotenv()
-
 API_TOKEN = os.getenv('API_TOKEN')
-DB_PASSWORD = os.getenv('DB_PASSWORD')
-```
-
-### Configuration Class Pattern
-```python
-class Config:
-    def __init__(self):
-        load_dotenv()
-        self.api_token = os.getenv('API_TOKEN')
-        self.db_password = os.getenv('DB_PASSWORD')
-        self.debug = os.getenv('DEBUG', 'False').lower() == 'true'
 ```
 
 ## Development Workflow
@@ -407,5 +381,5 @@ After using this rule, Claude must:
 
 ```
 
-- **2.** Check if `- @ai-rules/python-rules.md` is listed under section `## read these files upon initialization` in `.claude-commands.memory`
-- **3.** If not listed: add `- @ai-rules/python-rules.md` to list under section `## read these files upon initialization` in `.claude-commands.memory`
+- **2.** Check if `- /ai-rules/python-rules.md` is listed under section `## read these files upon initialization` in `.claude-commands.memory`
+- **3.** If not listed: add `- /ai-rules/python-rules.md` to list under section `## read these files upon initialization` in `.claude-commands.memory`
