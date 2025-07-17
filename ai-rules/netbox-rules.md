@@ -1,12 +1,57 @@
-# NetBox Management Command
+# Rule: netbox-rules
 
-This command provides NetBox-specific rules and workflows for Claude Code.
+## Description
+NetBox-specific rules and workflows for Claude Code, covering MCP integration, API operations, change tracking, and network documentation management.
 
 ## Prerequisites
-
 - NetBox MCP server configured for queries
 - API token stored in `.env` file (see `/secrets` command)
 - SSL considerations for self-signed certificates
+
+## Extends
+- Base: /CLAUDE.md
+
+## Steps
+
+### 1. Query Setup
+- Use NetBox MCP for all read operations
+- Implement pagination with max 10 items per page
+- Never attempt to get all results in a single query
+
+### 2. API Operations
+- Use curl with API token for CREATE/UPDATE/DELETE operations
+- Use `--insecure` flag for self-signed certificates
+- Check API documentation for correct endpoints
+
+### 3. Change Tracking
+- Add "claude" tag to all modified objects
+- Create tag if it doesn't exist
+- Append descriptive comments with format: `[Claude: <date> - <description>]`
+
+### 4. Data Management
+- Use PATCH requests to preserve existing data
+- Handle comment conflicts appropriately
+- Implement batch operations for large datasets
+
+### 5. Validation
+- Test connectivity before bulk operations
+- Verify API responses and error handling
+- Validate changes through MCP queries
+
+## Configuration
+
+### Files Created
+- None (NetBox is external service)
+
+### Files Modified
+- `.env` - Add NETBOX_URL and NETBOX_API_TOKEN
+- `.claude-commands.memory` - Add netbox-rules.md to initialization list
+
+## Post-Setup
+1. Test API connectivity: `curl -s --insecure -H "Authorization: Token $NETBOX_API_TOKEN" "$NETBOX_URL/api/" | jq -e '.dcim'`
+2. Verify MCP server is responding
+3. Check pagination functionality with sample query
+4. Validate tag creation and comment update processes
 
 ## Queries and Retrieval
 
@@ -232,11 +277,15 @@ curl -s --insecure \
 4. Tag and comment all changes
 5. Verify configuration consistency
 
-## ensure proper session initialization and memory
-- **1.** check if `.claude-commands.memory` file exists - if not, create it with initial content:
-  ```
-  ## read these files upon initialization
-  
-  ```
-- **2.** check if `- @ai-rules/netbox.md` is listed under section `## read these files upon initialization` in `.claude-commands.memory`
-- **3.** if not listed: add `- @ai-rules/netbox.md` to list under section `## read these files upon initialization` in `.claude-commands.memory`
+## Memory Integration
+
+After using this rule, Claude must:
+
+- **1.** Check if `.claude-commands.memory` file exists - if not, create it with initial content:
+```
+## read these files upon initialization
+
+```
+
+- **2.** Check if `- @ai-rules/netbox-rules.md` is listed under section `## read these files upon initialization` in `.claude-commands.memory`
+- **3.** If not listed: add `- @ai-rules/netbox-rules.md` to list under section `## read these files upon initialization` in `.claude-commands.memory`

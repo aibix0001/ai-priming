@@ -1,13 +1,69 @@
-# TypeScript Development Rule
+# Rule: typescript-rules
 
-This rule provides TypeScript-specific guidelines and workflows for Claude Code.
+## Description
+TypeScript-specific guidelines and workflows for Claude Code, emphasizing type safety, code quality, and modern development practices.
 
 ## Prerequisites
-
 - Node.js and npm installed
 - TypeScript installed (locally or globally)
 - Code editor with TypeScript support
 - Target environment accessible (browser/Node.js)
+
+## Extends
+- Base: /CLAUDE.md
+
+## Steps
+
+### 1. Project Setup
+- Use npm, yarn, or pnpm consistently within project
+- Configure TypeScript with strict settings
+- Set up package.json with proper scripts
+- Distinguish between dependencies and devDependencies
+
+### 2. TypeScript Configuration
+- Always use `tsconfig.json` with strict settings
+- Configure proper compilation options
+- Set up appropriate include/exclude patterns
+- Enable strict type checking
+
+### 3. Code Quality Setup
+- Install and configure ESLint with TypeScript support
+- Set up Prettier for code formatting
+- Configure Jest for testing with ts-jest
+- Set up proper linting rules
+
+### 4. Development Workflow
+- Use strict typing, avoid `any` type
+- Create proper interfaces and types
+- Implement type guards for runtime checking
+- Follow consistent naming conventions
+
+### 5. Testing and Validation
+- Set up Jest with TypeScript support
+- Create tests alongside source files
+- Implement runtime validation for external inputs
+- Use structured error handling
+
+## Configuration
+
+### Files Created
+- `tsconfig.json` - TypeScript configuration
+- `jest.config.js` - Jest test configuration
+- `.eslintrc.json` - ESLint configuration
+- `.prettierrc` - Prettier configuration
+- `src/` - Source code directory
+- `dist/` - Compiled output directory
+
+### Files Modified
+- `package.json` - Add scripts and dependencies
+- `.claude-commands.memory` - Add typescript-rules.md to initialization list
+
+## Post-Setup
+1. Install dependencies: `npm install -D typescript @types/node ts-node nodemon`
+2. Initialize TypeScript: `npx tsc --init`
+3. Run type check: `npm run typecheck`
+4. Run tests: `npm test`
+5. Run linter: `npm run lint`
 
 ## Environment Management
 
@@ -197,13 +253,13 @@ module.exports = {
 
 ## Memory Integration
 
-After using this command, Claude must:
+After using this rule, Claude must:
 
-- **1.** check if `.claude-commands.memory` file exists - if not, create it with initial content:
+- **1.** Check if `.claude-commands.memory` file exists - if not, create it with initial content:
 ```
 ## read these files upon initialization
 
 ```
 
-- **2.** check if `- @ai-rules/typescript.md` is listed under section `## read these files upon initialization` in `.claude-commands.memory`
-- **3.** if not listed: add `- @ai-rules/typescript.md` to list under section `## read these files upon initialization` in `.claude-commands.memory`
+- **2.** Check if `- @ai-rules/typescript-rules.md` is listed under section `## read these files upon initialization` in `.claude-commands.memory`
+- **3.** If not listed: add `- @ai-rules/typescript-rules.md` to list under section `## read these files upon initialization` in `.claude-commands.memory`

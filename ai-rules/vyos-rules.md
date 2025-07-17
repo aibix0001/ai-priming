@@ -1,13 +1,68 @@
-# VyOS Management Command
+# Rule: vyos-rules
 
-This command provides VyOS-specific rules and workflows for Claude Code.
+## Description
+VyOS-specific rules and workflows for Claude Code, covering network device configuration, Ansible automation, and VyOS Stream best practices.
 
 ## Prerequisites
-
 - VyOS devices accessible via SSH
 - Ansible with VyOS collection installed
 - Credentials configured (see `/secrets` command)
 - Network connectivity to target devices
+
+## Extends
+- Base: /CLAUDE.md
+- Rule: /ai-rules/ansible-rules.md
+
+## Steps
+
+### 1. Documentation Review
+- Consult VyOS documentation before implementing new features
+- Check VyOS Stream-specific features and syntax
+- Verify command syntax in documentation before execution
+
+### 2. Ansible Setup
+- Use Ansible playbooks for all configuration changes
+- Configure network_cli connection type
+- Set ansible_network_os to vyos
+- Use environment variables for credentials
+
+### 3. Configuration Management
+- Follow VyOS hierarchical configuration structure
+- Group related changes in single playbook tasks
+- Include descriptive commit messages
+- Save configuration after successful commits
+
+### 4. Error Handling
+- Create backups before major changes
+- Use commit-confirm for critical changes
+- Implement rollback procedures
+- Validate configuration before applying
+
+### 5. Verification
+- Use show commands for information gathering
+- Verify configuration after changes
+- Test connectivity post-configuration
+- Monitor logs for errors
+
+## Configuration
+
+### Files Created
+- `vyos-playbooks/` - Ansible playbooks directory
+- `group_vars/vyos.yml` - VyOS-specific variables
+- `host_vars/[device].yml` - Device-specific variables
+- `templates/` - Configuration templates
+- `backup/` - Configuration backups
+
+### Files Modified
+- `.env` - Add VYOS_USERNAME and VYOS_PASSWORD
+- `inventory/hosts.yml` - VyOS device inventory
+- `.claude-commands.memory` - Add vyos-rules.md to initialization list
+
+## Post-Setup
+1. Test connectivity: `ansible vyos_hosts -m ping`
+2. Gather device facts: `ansible vyos_hosts -m vyos.vyos.vyos_facts`
+3. Validate playbook syntax: `ansible-playbook --syntax-check vyos-config.yml`
+4. Run dry-run: `ansible-playbook --check vyos-config.yml`
 
 ## Documentation Requirements
 
@@ -297,11 +352,15 @@ ansible-playbook --syntax-check vyos-config.yml
 - Implement proper firewall rules
 - Regular security audits of configuration
 
-## ensure proper session initialization and memory
-- **1.** check if `.claude-commands.memory` file exists - if not, create it with initial content:
-  ```
-  ## read these files upon initialization
-  
-  ```
-- **2.** check if `- @ai-rules/vyos.md` is listed under section `## read these files upon initialization` in `.claude-commands.memory`
-- **3.** if not listed: add `- @ai-rules/vyos.md` to list under section `## read these files upon initialization` in `.claude-commands.memory`
+## Memory Integration
+
+After using this rule, Claude must:
+
+- **1.** Check if `.claude-commands.memory` file exists - if not, create it with initial content:
+```
+## read these files upon initialization
+
+```
+
+- **2.** Check if `- @ai-rules/vyos-rules.md` is listed under section `## read these files upon initialization` in `.claude-commands.memory`
+- **3.** If not listed: add `- @ai-rules/vyos-rules.md` to list under section `## read these files upon initialization` in `.claude-commands.memory`

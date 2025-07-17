@@ -1,13 +1,67 @@
-# Ansible Management Command
+# Rule: ansible-rules
 
-This command provides Ansible-specific rules and workflows for Claude Code.
+## Description
+Comprehensive Ansible automation workflows and best practices for Claude Code, covering inventory management, playbook development, variable management, and network device configuration.
 
 ## Prerequisites
-
 - Ansible installed and configured
 - Dynamic inventory configured (preferably NetBox)
 - Environment variables configured (see `/secrets` command)
 - Target hosts accessible
+
+## Extends
+- Base: /CLAUDE.md
+
+## Steps
+
+### 1. Inventory Setup
+- Configure NetBox dynamic inventory plugin
+- Set up netbox.yml with environment variables
+- Verify inventory loads correctly with `ansible-inventory --list`
+
+### 2. Playbook Development
+- Create playbooks following proper structure
+- Use descriptive names and appropriate tags
+- Set `gather_facts: yes` unless explicitly not needed
+- Implement proper error handling and idempotency
+
+### 3. Variable Management
+- Use group_vars/host_vars for environment-specific settings
+- Parameterize all configurations
+- Use environment variable lookups for sensitive data
+- Follow variable precedence rules
+
+### 4. Execution and Testing
+- Run syntax checks before execution
+- Use dry run (`--check`) for significant changes
+- Test on subset of hosts first using `--limit`
+- Implement proper failure handling protocols
+
+### 5. Integration
+- Integrate with NetBox for dynamic inventory
+- Use Ansible Vault for sensitive data
+- Update NetBox after successful configuration changes
+- Commit changes to version control
+
+## Configuration
+
+### Files Created
+- `netbox.yml` - NetBox dynamic inventory configuration
+- `group_vars/all.yml` - Global variables
+- `group_vars/[role].yml` - Role-specific variables
+- `host_vars/[host].yml` - Host-specific variables
+- `playbooks/[name].yml` - Playbook files
+- `.vault_pass` - Vault password file (if using)
+
+### Files Modified
+- `.env` - Environment variables for API tokens and URLs
+- `.claude-commands.memory` - Add ansible-rules.md to initialization list
+
+## Post-Setup
+1. Verify inventory loads correctly: `ansible-inventory --list`
+2. Test connectivity: `ansible all -m ping`
+3. Run syntax check: `ansible-playbook --syntax-check playbook.yml`
+4. Execute dry run: `ansible-playbook --check playbook.yml`
 
 ## Inventory Management
 
@@ -313,11 +367,15 @@ molecule test
 - **Validation**: Test connectivity with `ansible all -m ping`
 - **Post-deployment**: Verify changes on target devices
 
-## ensure proper session initialization and memory
-- **1.** check if `.claude-commands.memory` file exists - if not, create it with initial content:
-  ```
-  ## read these files upon initialization
-  
-  ```
-- **2.** check if `- @ai-rules/ansible.md` is listed under section `## read these files upon initialization` in `.claude-commands.memory`
-- **3.** if not listed: add `- @ai-rules/ansible.md` to list under section `## read these files upon initialization` in `.claude-commands.memory`
+## Memory Integration
+
+After using this rule, Claude must:
+
+- **1.** Check if `.claude-commands.memory` file exists - if not, create it with initial content:
+```
+## read these files upon initialization
+
+```
+
+- **2.** Check if `- @ai-rules/ansible-rules.md` is listed under section `## read these files upon initialization` in `.claude-commands.memory`
+- **3.** If not listed: add `- @ai-rules/ansible-rules.md` to list under section `## read these files upon initialization` in `.claude-commands.memory`

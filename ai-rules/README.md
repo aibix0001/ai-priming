@@ -44,13 +44,13 @@ Instructions or commands to run after setup
 ## Available Rules
 
 ### Infrastructure & Automation
-- `ansible.md` - Ansible automation workflows and playbook management
-- `netbox.md` - NetBox network documentation and device management
-- `vyos.md` - VyOS network device configuration and management
+- `ansible-rules.md` - Ansible automation workflows and playbook management
+- `netbox-rules.md` - NetBox network documentation and device management
+- `vyos-rules.md` - VyOS network device configuration and management
 
 ### Development & Testing
-- `python.md` - Python development workflows and best practices
-- `typescript.md` - TypeScript development workflows and best practices
+- `python-rules.md` - Python development workflows and best practices
+- `typescript-rules.md` - TypeScript development workflows and best practices
 
 *Note: Testing framework guidelines and secrets management best practices are now incorporated into the main CLAUDE.md file under "Testing Framework and Strategy" and "Secrets and Credentials Management" sections respectively.*
 
@@ -58,7 +58,7 @@ Instructions or commands to run after setup
 
 When creating a new rule:
 
-1. Follow the naming convention: `technology.md` or `workflow.md`
+1. Follow the naming convention: `technology-rules.md` or `workflow-rules.md`
 2. Make rules idempotent (safe to apply multiple times)
 3. Include error handling and rollback instructions
 4. Test the rule in different scenarios
@@ -71,7 +71,7 @@ Rules can reference other rules or the base CLAUDE.md:
 ```markdown
 ## Extends
 - Base: /CLAUDE.md
-- Rule: /add-linting.md
+- Rule: /ai-rules/add-linting-rules.md
 ```
 
 This allows rules to build upon existing configurations without duplication.

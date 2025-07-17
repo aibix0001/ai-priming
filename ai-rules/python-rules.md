@@ -1,12 +1,66 @@
-# Python Development Rule
+# Rule: python-rules
 
-This rule provides Python-specific guidelines and workflows for Claude Code using uv for modern Python tooling.
+## Description
+Python-specific guidelines and workflows for Claude Code using uv for modern Python tooling, emphasizing code quality, reusability, and UV-first development practices.
 
 ## Prerequisites
-
 - uv installed (https://docs.astral.sh/uv/getting-started/installation/)
 - Python interpreter available (uv will manage versions)
 - Target environment accessible
+
+## Extends
+- Base: /CLAUDE.md
+
+## Steps
+
+### 1. Environment Setup
+- Use uv exclusively for Python operations
+- No virtual environments (venv, virtualenv, conda)
+- No package installation with pip
+- Rely on uv's ephemeral environments
+
+### 2. Project Structure
+- Initialize projects with `uv init`
+- Use pyproject.toml for dependency specification
+- Avoid traditional requirements.txt files
+- Configure development dependencies in [tool.uv] sections
+
+### 3. Code Quality
+- No hardcoding of values in scripts
+- Parameterize all functions
+- Check for existing similar functions before creating new ones
+- Create shared modules when functionality needed in 2+ places
+
+### 4. Testing Implementation
+- Detect test frameworks (pytest/unittest)
+- Run tests with uvx after changes
+- Create unit tests for new functions
+- Ensure all tests pass before completion
+
+### 5. Code Style
+- Use uv-managed formatters (black, ruff)
+- Follow PEP 8 guidelines
+- Match existing project conventions
+- Organize imports properly
+
+## Configuration
+
+### Files Created
+- `pyproject.toml` - Project configuration and dependencies
+- `src/` - Source code directory
+- `tests/` - Test files
+- `main.py` - Entry point script
+- `.env` - Environment variables (if needed)
+
+### Files Modified
+- `.claude-commands.memory` - Add python-rules.md to initialization list
+
+## Post-Setup
+1. Initialize project: `uv init my-project`
+2. Add dependencies: `uv add requests pandas python-dotenv`
+3. Add dev dependencies: `uv add --dev pytest black ruff mypy`
+4. Run tests: `uvx pytest`
+5. Format code: `uvx black . && uvx ruff check --fix .`
 
 ## Environment Management
 
@@ -347,11 +401,11 @@ CMD ["uv", "run", "python", "main.py"]
 
 After using this rule, Claude must:
 
-- **1.** check if `.claude-commands.memory` file exists - if not, create it with initial content:
+- **1.** Check if `.claude-commands.memory` file exists - if not, create it with initial content:
 ```
 ## read these files upon initialization
 
 ```
 
-- **2.** check if `- @ai-rules/python.md` is listed under section `## read these files upon initialization` in `.claude-commands.memory`
-- **3.** if not listed: add `- @ai-rules/python.md` to list under section `## read these files upon initialization` in `.claude-commands.memory`
+- **2.** Check if `- @ai-rules/python-rules.md` is listed under section `## read these files upon initialization` in `.claude-commands.memory`
+- **3.** If not listed: add `- @ai-rules/python-rules.md` to list under section `## read these files upon initialization` in `.claude-commands.memory`
