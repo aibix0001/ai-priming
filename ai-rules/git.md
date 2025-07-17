@@ -76,9 +76,67 @@ Comprehensive Git workflow guidelines and best practices for Claude Code, coveri
 - **Pull request preparation**: Prepare clear descriptions and context
 - **Shared repository**: Follow agreed-upon team workflows and conventions
 
-### 6. Advanced Git Features
+### 6. Worktree Management and Validation
+- **Worktree creation**: Use `git worktree add <path> -b <branch>` for parallel work
+- **Mandatory validation**: ALWAYS validate working context before git operations:
+  - `pwd` to confirm current directory
+  - `git branch` to confirm current branch
+  - `git status` to confirm repository state
+  - `ls -la` to verify expected file structure
+- **Directory isolation**: Each worktree must be in separate directory
+- **Branch isolation**: Each worktree must have dedicated branch
+- **Working context verification**: Before ANY git operation, verify:
+  ```bash
+  # Required validation sequence
+  echo "Current directory: $(pwd)"
+  echo "Current branch: $(git branch --show-current)"
+  echo "Repository root: $(git rev-parse --show-toplevel)"
+  git status --short
+  ```
+- **Explicit directory changes**: Always use absolute paths and explicit `cd` commands
+- **Validation failure protocol**: If validation fails, STOP and request user guidance
+
+### 7. Subagent Coordination Rules
+- **Isolation requirement**: Each subagent must work in isolated worktree
+- **Validation mandate**: Subagents must validate location before ANY file operations
+- **Communication protocol**: Subagents must report their working context
+- **Error isolation**: Subagent errors must not affect main branch or other worktrees
+- **Working directory protocol**: 
+  1. Receive explicit path assignment
+  2. Execute `cd <assigned-path>` as first action
+  3. Validate location with required commands
+  4. Report validation results
+  5. ONLY proceed if validation confirms correct location
+- **Forbidden operations**: Subagents must NEVER:
+  - Operate on main branch unless explicitly authorized
+  - Modify files outside assigned worktree
+  - Skip validation steps
+  - Assume working directory context
+
+### 8. Directory Management Requirements
+- **Explicit path usage**: Always use absolute paths in commands
+- **Working directory verification**: Verify `pwd` matches expected location
+- **Repository context checks**: Confirm `git rev-parse --show-toplevel` shows expected repo
+- **Branch context validation**: Confirm `git branch --show-current` matches expected branch
+- **File structure verification**: Use `ls -la` to confirm expected files present
+- **Change directory protocol**: 
+  ```bash
+  # Required pattern for directory changes
+  cd /absolute/path/to/target/directory
+  pwd  # Verify location
+  git status  # Verify git context
+  ```
+
+### 9. Parallel Work Safeguards
+- **Main branch protection**: Main branch modifications require explicit user approval
+- **Worktree isolation**: Each parallel task must use separate worktree
+- **Conflict prevention**: Use separate branches for parallel work
+- **Merge coordination**: Coordinate merges to avoid conflicts
+- **Status reporting**: Each parallel worker must report status independently
+- **Failure isolation**: One parallel worker failure must not affect others
+
+### 10. Advanced Git Features
 - **Stashing**: Use `git stash` for temporary work management
-- **Worktree usage**: Use worktrees for parallel work on different branches
 - **Git hooks**: Implement hooks for automation and quality checks
 - **Aliases**: Set up useful Git aliases for common operations
 - **Configuration**: Maintain appropriate local and global Git configuration
@@ -109,6 +167,82 @@ Comprehensive Git workflow guidelines and best practices for Claude Code, coveri
 - **Secret prevention**: Never commit secrets, tokens, or credentials
 - **Access control**: Follow principle of least privilege
 
+## Validation Templates
+
+### Subagent Working Context Validation
+**MANDATORY for all subagents before ANY file operations:**
+
+```bash
+# Step 1: Change to assigned directory
+cd /absolute/path/to/assigned/worktree
+
+# Step 2: Validate location and context
+echo "=== WORKING CONTEXT VALIDATION ==="
+echo "Current directory: $(pwd)"
+echo "Expected directory: /absolute/path/to/assigned/worktree"
+echo "Current branch: $(git branch --show-current)"
+echo "Expected branch: feature/branch-name"
+echo "Repository root: $(git rev-parse --show-toplevel)"
+echo "Git status:"
+git status --short
+
+# Step 3: Verify file structure
+echo "=== FILE STRUCTURE VERIFICATION ==="
+ls -la
+echo "Expected files: [list expected files]"
+
+# Step 4: Validation result
+echo "=== VALIDATION RESULT ==="
+if [ "$(pwd)" = "/absolute/path/to/assigned/worktree" ] && [ "$(git branch --show-current)" = "feature/branch-name" ]; then
+    echo "✅ VALIDATION PASSED - Safe to proceed"
+else
+    echo "❌ VALIDATION FAILED - DO NOT PROCEED"
+    exit 1
+fi
+```
+
+### Worktree Creation Validation
+**Use this template when creating worktrees:**
+
+```bash
+# Create worktree
+git worktree add /absolute/path/to/worktree -b feature/branch-name
+
+# Validate worktree creation
+echo "=== WORKTREE VALIDATION ==="
+cd /absolute/path/to/worktree
+echo "Worktree directory: $(pwd)"
+echo "Worktree branch: $(git branch --show-current)"
+echo "Repository root: $(git rev-parse --show-toplevel)"
+git status
+
+# List all worktrees
+echo "=== ALL WORKTREES ==="
+git worktree list
+```
+
+### Pre-Operation Safety Check
+**Run before any git operation that modifies files:**
+
+```bash
+echo "=== PRE-OPERATION SAFETY CHECK ==="
+echo "Current directory: $(pwd)"
+echo "Current branch: $(git branch --show-current)"
+echo "Repository status:"
+git status --short
+
+# Verify not on main branch (unless authorized)
+if [ "$(git branch --show-current)" = "main" ]; then
+    echo "⚠️  WARNING: Operating on main branch - requires explicit authorization"
+fi
+
+# Check for uncommitted changes
+if [ -n "$(git status --porcelain)" ]; then
+    echo "⚠️  WARNING: Uncommitted changes detected"
+    git status --short
+fi
+```
+
 ## Post-Setup
 After applying Git rules:
 1. Verify Git configuration: `git config --list`
@@ -116,6 +250,7 @@ After applying Git rules:
 3. Validate remote connections: `git remote -v`
 4. Test branch operations: `git branch -a`
 5. Confirm commit signing (if configured): `git log --show-signature`
+6. Test worktree validation template: Run subagent validation template in test scenario
 
 ## Memory Integration
 
