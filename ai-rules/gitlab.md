@@ -6,6 +6,14 @@ GitLab-specific workflow guidelines and best practices for Claude Code, covering
 ## Extends
 - Base: @ai-rules/git.md
 
+## Rule Precedence
+**When working in GitLab projects, the following GitLab-specific rules OVERRIDE corresponding git.md rules:**
+
+1. **Branch Creation Authority**: GitLab issue workflow allows automatic branch creation via `glab issue create --branch` when creating issues, overriding git.md requirement for explicit user approval
+2. **Work Authorization**: GitLab label-based work authorization ('claude-work-on-issue' label) is MANDATORY and overrides general git workflow permissions  
+3. **Merge Requests**: GitLab workflow allows automatic MR creation but still requires explicit user approval for actual merging
+4. **Issue Integration**: All work must be linked to GitLab issues, extending beyond general git workflow requirements
+
 ## Prerequisites
 - Git installed (version 2.20 or higher recommended)
 - GitLab account with appropriate project access
@@ -87,7 +95,16 @@ GitLab-specific workflow guidelines and best practices for Claude Code, covering
 - **Completion phase**: Add 'claude-finished-issue' label when work is done
 - **Merge phase**: Create MR, wait for CI/CD, merge, auto-close issue
 
-### 8. Error Handling and Recovery
+### 8. Worktree Integration with GitLab Workflow
+- **Worktree-issue mapping**: Each worktree should correspond to a specific GitLab issue
+- **Branch naming consistency**: Use issue number in branch name (e.g., `feature/123-implement-login`)
+- **Validation requirements**: Follow git.md worktree validation templates before GitLab operations
+- **Issue status updates**: Update GitLab issue status from appropriate worktree
+- **MR creation**: Create merge requests from worktree with proper issue linking
+- **CI/CD context**: Ensure CI/CD pipelines run correctly from worktree branches
+- **Isolation benefits**: Use worktrees to work on multiple issues simultaneously without conflicts
+
+### 9. Error Handling and Recovery
 - **Documentation reference**: Always check glab documentation when encountering errors
 - **Authentication issues**: Verify `glab auth status` before troubleshooting other issues
 - **Project access**: Confirm project access with `glab repo view`
@@ -154,13 +171,4 @@ After applying GitLab rules:
 
 ## Memory Integration
 
-After using this rule, Claude must:
-
-- **1.** Check if `.claude-commands.memory` file exists - if not, create it with initial content:
-```
-## read these files upon initialization
-
-```
-
-- **2.** Check if `- @ai-rules/gitlab.md` is listed under section `## read these files upon initialization` in `.claude-commands.memory`
-- **3.** If not listed: add `- @ai-rules/gitlab.md` to list under section `## read these files upon initialization` in `.claude-commands.memory`
+After using this rule, Claude must add `- @ai-rules/gitlab.md` to the memory integration list following the same process defined in git.md base rule.
