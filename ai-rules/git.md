@@ -3,6 +3,9 @@
 ## Description
 Comprehensive Git workflow guidelines and best practices for Claude Code, covering repository management, branching strategies, commit practices, and collaboration workflows.
 
+## Extends
+- Base: @CLAUDE.md
+
 ## Prerequisites
 - Git installed (version 2.20 or higher recommended)
 - Basic understanding of version control concepts
