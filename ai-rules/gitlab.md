@@ -1,18 +1,10 @@
 # Rule: gitlab-rules
 
 ## Description
-GitLab-specific workflow guidelines and best practices for Claude Code, covering issue management, merge request workflows, CI/CD integration, and GitLab collaboration patterns.
+Remote GitLab platform interaction guidelines for Claude Code, covering glab CLI usage for issue management, labeling, pipeline monitoring, and GitLab collaboration via the remote platform.
 
 ## Extends
 - Base: @ai-rules/git.md
-
-## Rule Precedence
-**When working in GitLab projects, the following GitLab-specific rules OVERRIDE corresponding git.md rules:**
-
-1. **Branch Creation Authority**: GitLab issue workflow allows automatic branch creation via `glab issue create --branch` when creating issues, overriding git.md requirement for explicit user approval
-2. **Work Authorization**: GitLab label-based work authorization ('claude-work-on-issue' label) is MANDATORY and overrides general git workflow permissions  
-3. **Merge Requests**: GitLab workflow allows automatic MR creation but still requires explicit user approval for actual merging
-4. **Issue Integration**: All work must be linked to GitLab issues, extending beyond general git workflow requirements
 
 ## Prerequisites
 - Git installed (version 2.20 or higher recommended)
@@ -35,14 +27,13 @@ GitLab-specific workflow guidelines and best practices for Claude Code, covering
   - `glab pipeline list` - View CI/CD pipelines
 - **Troubleshooting**: When glab commands fail, check authentication (`glab auth status`) and project access first
 
-### 2. Issue Management Workflow
-- **Issue creation**: All bugs, new features, or fixes must start as an issue (`glab issue create`)
-- **Work authorization**: Check for 'claude-work-on-issue' label before starting work
-- **Authorization requirement**: Assistant must not start working on issues without 'claude-work-on-issue' label
-- **Pre-work check**: Check issue comments for last-minute user input before starting work
-- **User questions**: If user asks questions in comments, answer and mark with 'claude-awaiting-confirmation' label (purple)
-- **Status updates**: Update issue status/progress with comments during work
-- **Progress tracking**: Regular comments with implementation progress and status updates
+### 2. Issue Management via glab CLI
+- **Issue creation**: Use `glab issue create` to create new issues on GitLab
+- **Issue listing**: Use `glab issue list` to view issues
+- **Issue viewing**: Use `glab issue view <number>` to view specific issue details
+- **Issue commenting**: Use `glab issue comment <number>` to add comments
+- **Issue status updates**: Use glab commands to update issue status and progress
+- **Issue closing**: Use `glab issue close <number>` when work is complete
 
 ### 3. Label Management System
 - **Required labels**: Create required labels if they don't exist:
@@ -60,68 +51,50 @@ GitLab-specific workflow guidelines and best practices for Claude Code, covering
   ```
 - **Color specifications**: Visual workflow status identification through consistent color coding
 
-### 4. Branch and Merge Request Workflow
-- **Branch naming**: Create branches with issue numbers (e.g., `feature/123-implement-login`)
-- **Automated creation**: Use `glab issue create --branch` when possible for automatic branch creation
-- **Merge request creation**: Create merge requests using `glab mr create` when work is complete
-- **MR title standards**: MR title should reference issue number (e.g., "Fix: Resolve issue #123")
-- **MR description standards**: MR description should link to original issue and include testing notes
-- **Reviewer assignment**: Assign merge requests to appropriate reviewers if specified
-- **Automatic closure**: Close issues automatically when MR is merged (using closing keywords like "Closes #123")
+### 4. Merge Request Management via glab CLI
+- **MR creation**: Use `glab mr create` to create merge requests on GitLab
+- **MR listing**: Use `glab mr list` to view merge requests
+- **MR viewing**: Use `glab mr view <number>` to view MR details
+- **MR approval**: Use `glab mr approve <number>` to approve merge requests
+- **MR merging**: Use `glab mr merge <number>` to merge approved requests
+- **Reviewer assignment**: Use `glab mr create --reviewer <username>` to assign reviewers
+- **Draft MRs**: Use `glab mr create --draft` for work-in-progress merge requests
 
-### 5. CI/CD Integration
-- **Pipeline monitoring**: Check pipeline status before creating merge requests
-- **Quality gates**: Wait for CI/CD pipelines to pass before marking work as complete
-- **Pipeline failures**: Monitor pipeline failures and create follow-up issues if needed
-- **Status reporting**: Include pipeline status in work progress updates
-- **Pipeline validation**: Use `glab pipeline list` to check current pipeline status
-- **CI/CD compliance**: Respect CI/CD quality requirements and gates
+### 5. CI/CD Pipeline Monitoring via glab CLI
+- **Pipeline listing**: Use `glab pipeline list` to view pipeline status
+- **Pipeline details**: Use `glab pipeline view <id>` to view specific pipeline details
+- **Pipeline monitoring**: Use `glab pipeline status` to check current pipeline status
+- **Pipeline artifacts**: Use `glab pipeline artifacts` to download pipeline artifacts
+- **Pipeline retry**: Use `glab pipeline retry <id>` to retry failed pipelines
+- **Pipeline cancellation**: Use `glab pipeline cancel <id>` to cancel running pipelines
 
-### 6. Communication and Documentation
-- **Implementation details**: Update issue descriptions with implementation details
-- **Failed approaches**: Document failed approaches in issue comments
-- **Blocker handling**: Create follow-up issues for blockers encountered during work
-- **Communication timeline**: Maintain clear communication timeline in issue comments
-- **Documentation reference**: Reference relevant GitLab project documentation
-- **Progress transparency**: Provide regular status updates throughout work progression
+### 6. GitLab Platform Communication via glab CLI
+- **Issue commenting**: Use `glab issue comment <number> "message"` to add comments
+- **Issue description updates**: Use `glab issue edit <number>` to update issue descriptions
+- **Issue assignments**: Use `glab issue assign <number> <username>` to assign issues
+- **Issue due dates**: Use `glab issue edit <number> --due-date <date>` to set due dates
+- **Issue milestones**: Use `glab issue edit <number> --milestone <milestone>` to set milestones
+- **MR commenting**: Use `glab mr comment <number> "message"` to comment on merge requests
+- **MR description updates**: Use `glab mr edit <number>` to update MR descriptions
 
-### 7. Issue Lifecycle Management
-- **Discovery phase**: Issue created by user or system
-- **Review phase**: User adds 'claude-work-on-issue' label after review
-- **Pre-work check**: Assistant checks comments for questions/clarifications
-- **Confirmation phase**: If questions exist, add 'claude-awaiting-confirmation' label and wait
-- **Work start**: Add 'claude-working-on-issue' label and begin implementation
-- **Progress updates**: Regular comments with status updates
-- **Completion phase**: Add 'claude-finished-issue' label when work is done
-- **Merge phase**: Create MR, wait for CI/CD, merge, auto-close issue
-
-### 8. Worktree Integration with GitLab Workflow
-- **Worktree-issue mapping**: Each worktree should correspond to a specific GitLab issue
-- **Branch naming consistency**: Use issue number in branch name (e.g., `feature/123-implement-login`)
-- **Validation requirements**: Follow git.md worktree validation templates before GitLab operations
-- **Issue status updates**: Update GitLab issue status from appropriate worktree
-- **MR creation**: Create merge requests from worktree with proper issue linking
-- **CI/CD context**: Ensure CI/CD pipelines run correctly from worktree branches
-- **Isolation benefits**: Use worktrees to work on multiple issues simultaneously without conflicts
-
-### 9. Error Handling and Recovery
-- **Documentation reference**: Always check glab documentation when encountering errors
+### 7. glab CLI Error Handling
+- **Documentation reference**: Always check glab documentation (`glab help` or `glab <command> --help`) when encountering errors
 - **Authentication issues**: Verify `glab auth status` before troubleshooting other issues
 - **Project access**: Confirm project access with `glab repo view`
-- **Command validation**: Use `glab <command> --help` to verify command syntax
-- **Error documentation**: Document errors and solutions in issue comments
-- **Follow-up issues**: Create separate issues for unresolved blockers
+- **Command validation**: Use `glab <command> --help` to verify command syntax before execution
+- **Connection issues**: Check network connectivity and GitLab instance availability
+- **Rate limiting**: Handle GitLab API rate limits gracefully with appropriate delays
 
 ## Configuration
 
-### Files Created
-- `.gitlab-ci.yml` - May be updated as part of CI/CD workflow
-- Branch protection rules - Via GitLab project settings
-- Issue templates - Via GitLab project settings
+### Remote GitLab Configuration
+- **GitLab labels**: Created via `glab label create` commands
+- **Issue templates**: Configured via GitLab project settings
+- **Merge request templates**: Configured via GitLab project settings
+- **Branch protection rules**: Configured via GitLab project settings
+- **CI/CD pipelines**: Configured via `.gitlab-ci.yml` (file operations handled by git.md)
 
-### Files Modified
-- `README.md` - May be updated with GitLab workflow documentation
-- Project files - As part of normal development workflow
+### Local Files Modified
 - `.claude-commands.memory` - Add gitlab.md to initialization list
 
 ### Labels Required
@@ -148,26 +121,19 @@ After applying GitLab rules:
 6. Create required labels if missing
 7. Test issue creation and labeling workflow
 
-## GitLab-Specific Best Practices
+## GitLab Platform Best Practices
 
-### Merge Request Best Practices
-- **Title standards**: Consistent, descriptive titles with issue references
-- **Description templates**: Comprehensive descriptions with testing notes
-- **Review process**: Proper reviewer assignment and review workflow
-- **Merge strategy**: Appropriate merge methods for different scenarios
-- **Closing keywords**: Use "Closes #123" or "Fixes #123" to auto-close issues
+### glab CLI Usage Patterns
+- **Command verification**: Always verify glab commands with `--help` before execution
+- **Batch operations**: Use glab list commands to process multiple items efficiently
+- **Error handling**: Check command exit codes and handle failures gracefully
+- **Authentication management**: Regularly verify `glab auth status` to prevent authentication errors
 
-### Communication Protocols
-- **Issue comments**: Structured progress updates and status reports
-- **Documentation**: Clear documentation of approaches and decisions
-- **Error reporting**: Comprehensive error and blocker documentation
-- **Follow-up**: Proper creation of follow-up issues for unresolved items
-
-### Workflow Automation
-- **Label automation**: Automatic label application based on workflow state
-- **Issue linking**: Proper linking between issues, branches, and merge requests
-- **Pipeline integration**: Automated pipeline status checking and reporting
-- **Status synchronization**: Keep issue status synchronized with actual work progress
+### GitLab Remote Operations
+- **Issue references**: Use consistent issue referencing in titles and descriptions
+- **Label application**: Apply labels systematically using glab commands
+- **MR linking**: Use closing keywords ("Closes #123") in MR descriptions to auto-close issues
+- **Pipeline monitoring**: Regularly check pipeline status before proceeding with operations
 
 ## Memory Integration
 

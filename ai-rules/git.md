@@ -36,6 +36,8 @@ Comprehensive Git workflow guidelines and best practices for Claude Code, coveri
   - Hotfixes: `hotfix/description`
   - Release branches: `release/version`
   - Maintenance branches: `maint/description`
+- **Issue integration**: When working with issue tracking systems, include issue numbers in branch names (e.g., `feature/123-implement-login`)
+- **Work authorization**: Follow project-specific work authorization requirements (labels, assignments, etc.) before starting work
 
 ### 3. Commit Management
 - **Atomic commits**: Each commit should represent a single logical change
@@ -69,14 +71,22 @@ Comprehensive Git workflow guidelines and best practices for Claude Code, coveri
 - **Merge policy**: Only merge when user explicitly approves
 - **Branch retention**: After merging, **must not** delete feature branch - keep for reference
 
-### 5. Collaboration Workflows
+### 5. Issue-Driven Workflow
+- **Issue tracking integration**: Link all work to specific issues or tickets
+- **Branch-issue mapping**: Create one branch per issue for clear tracking
+- **Work authorization**: Verify work is authorized before starting (check labels, assignments, etc.)
+- **Issue lifecycle**: Follow project-specific issue lifecycle management
+- **Progress tracking**: Update issue status as work progresses
+- **Closing integration**: Use commit messages or merge descriptions to close issues automatically
+
+### 6. Collaboration Workflows
 - **Feature branch workflow**: Default workflow for team collaboration
 - **Code review preparation**: Ensure commits are clean and well-documented
 - **Synchronization**: Regularly sync with team branches and main branch
 - **Pull request preparation**: Prepare clear descriptions and context
 - **Shared repository**: Follow agreed-upon team workflows and conventions
 
-### 6. Worktree Management and Validation
+### 7. Worktree Management and Validation
 - **Worktree creation**: Use `git worktree add <path> -b <branch>` for parallel work
 - **Mandatory validation**: ALWAYS validate working context before git operations:
   - `pwd` to confirm current directory
@@ -96,7 +106,7 @@ Comprehensive Git workflow guidelines and best practices for Claude Code, coveri
 - **Explicit directory changes**: Always use absolute paths and explicit `cd` commands
 - **Validation failure protocol**: If validation fails, STOP and request user guidance
 
-### 7. Subagent Coordination Rules
+### 8. Subagent Coordination Rules
 - **Isolation requirement**: Each subagent must work in isolated worktree
 - **Validation mandate**: Subagents must validate location before ANY file operations
 - **Communication protocol**: Subagents must report their working context
@@ -113,7 +123,7 @@ Comprehensive Git workflow guidelines and best practices for Claude Code, coveri
   - Skip validation steps
   - Assume working directory context
 
-### 8. Directory Management Requirements
+### 9. Directory Management Requirements
 - **Explicit path usage**: Always use absolute paths in commands
 - **Working directory verification**: Verify `pwd` matches expected location
 - **Repository context checks**: Confirm `git rev-parse --show-toplevel` shows expected repo
@@ -127,7 +137,7 @@ Comprehensive Git workflow guidelines and best practices for Claude Code, coveri
   git status  # Verify git context
   ```
 
-### 9. Parallel Work Safeguards
+### 10. Parallel Work Safeguards
 - **Main branch protection**: Main branch modifications require explicit user approval
 - **Worktree isolation**: Each parallel task must use separate worktree
 - **Conflict prevention**: Use separate branches for parallel work
@@ -135,7 +145,7 @@ Comprehensive Git workflow guidelines and best practices for Claude Code, coveri
 - **Status reporting**: Each parallel worker must report status independently
 - **Failure isolation**: One parallel worker failure must not affect others
 
-### 10. Advanced Git Features
+### 11. Advanced Git Features
 - **Stashing**: Use `git stash` for temporary work management
 - **Git hooks**: Implement hooks for automation and quality checks
 - **Aliases**: Set up useful Git aliases for common operations
